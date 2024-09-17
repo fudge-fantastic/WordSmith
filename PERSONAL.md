@@ -51,7 +51,3 @@ The `root.tsx` file acts as the global wrapper for your app, handling things lik
 - **Server-Side Rendering** (`entry.server.tsx`) prepares the initial HTML response when a request is made to your app.
 - **Client-Side Hydration** (`entry.client.tsx`) takes over after the page is loaded, turning the static HTML into an interactive React app.
 - **Global Layout and Styling** (`root.tsx`) defines the layout of your app and injects global assets like fonts and stylesheets.
-
-These files are core to the functionality of Remix in terms of managing server-side rendering and client-side hydration, ensuring your app is fast and interactive. 
-
-Let me know if you need more details on any specific part!

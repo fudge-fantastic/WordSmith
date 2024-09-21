@@ -17,7 +17,30 @@
    - If you don't wanna share your layout with nested routes, you can use [posts_.design_.figma.tsx] instead. It will only show the figma page.
    - Another one is, if you don't wanna share your URL route with the people, you can use [_auth.tsx] and [_auth.login.tsx] instead.
 5. \_index.tsx is a default route. Why? Note the underscore before the index.tsx file. "\_" ignores the filename.
-6. Dynamic Routes:
+6. For dynamic routes, we use $ in the route. For instance, below is a dynamic route.
+   - $ is a dynamic route, loader is a function that returns the dynamic route.
+   - if the route is /posts/01-01-2024/hello, our file name would be something like: posts.tsx and posts.$date.$slug.tsx (this is an example of Dyanamic Routes).
+7. Optional Segments: consider this, ($lang).products.tsx can help us create routes likes en/products (for english users) or fr/products (for french users). It's like a nested route.
+8. If you want another dynamic route, just add another $ in the route. For instance, posts.$.tsx
+   - posts.$.tsx can create any routes, like
+     - posts.nature or posts.wild or posts.city or posts.land, etc
+9. You can view/load the data using loader. For instance, content_api.js has some data (these are mostly called "resource route"). you can access the data using localhost:5173/content_api (this will load the data).
+
+```tsx
+export async function loader({ params }) {
+  const slug = params.slug;
+  console.log(slug);
+  return slug;
+}
+
+export default function SinglePost() {
+  return (
+    <div>
+      <h1>This is a Single Post page</h1>
+    </div>
+  );
+}
+```
 
 ## Code Demo
 
@@ -101,3 +124,5 @@ export default function Figma() {
   );
 }
 ```
+
+### Links and Navigations

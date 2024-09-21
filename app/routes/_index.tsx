@@ -1,11 +1,7 @@
-export default function Index() {
+export default function NewIndex() {
   return (
     <div>
-      <div>
-        <h1 className="text-3xl text-center font-bold p-8">
-          Hello Remix<span className="text-yellow-300">JS</span>
-        </h1>
-      </div>
+        <h3 className="text-center">The Quick Brown Fox Jumps Over The Lazy Dog</h3>
     </div>
-  );
+  )
 }

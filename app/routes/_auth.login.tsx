@@ -5,4 +5,4 @@ export default function Login() {
             <a className = "text-xl" href="http://localhost:5173/posts">Login here</a>
         </div>
     );
-}
+}   

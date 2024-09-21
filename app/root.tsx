@@ -8,7 +8,6 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
-import Index from "./routes/_index";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,6 +21,16 @@ export const links: LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export function Index() {
+  return (
+    <div>
+        <h1 className="text-3xl text-center font-bold p-8">
+          Hello Remix<span className="text-yellow-300">JS</span>
+        </h1>
+    </div>
+  );
+}
 
 export function Layout() {
   return (

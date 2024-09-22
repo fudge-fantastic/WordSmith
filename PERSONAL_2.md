@@ -126,3 +126,7 @@ export default function Figma() {
 ```
 
 ### Links and Navigations
+
+1. SSN (Server-Side-Navigation): When clicked on link, the whole page is loaded, and the URL changes. Now to prevent the entire page being loaded everytime we hit a link, we can use the "Link" component in Remix. It will only render the specific file. To disable this, we use reloadDocument property in Remix. [Visit here](https://remix.run/docs/en/main/components/link)
+2. What is NavLinks? Wraps "Link" with additional props for styling active and pending states.
+3. Meta tags are used to add metadata to a webpage. They provide information about the page, such as the title, description, and (historically) keywords. The title and description meta tags help search engines display relevant information about the page in search results. For instance, when someone searches for your website, they will typically see the title and description you've provided in your meta tags, although keywords are no longer a ranking factor for most modern search engines. [Visit this](https://www.wordstream.com/meta-tags)

@@ -46,7 +46,7 @@ export default function SinglePost() {
 
 ### Simple import
 
-```ts
+```tsx
 import { app } from "./test_folder_1/demo_child";
 // Here, the demo_child is a .tsx file, and it has a default export
 
@@ -129,4 +129,62 @@ export default function Figma() {
 
 1. SSN (Server-Side-Navigation): When clicked on link, the whole page is loaded, and the URL changes. Now to prevent the entire page being loaded everytime we hit a link, we can use the "Link" component in Remix. It will only render the specific file. To disable this, we use reloadDocument property in Remix. [Visit here](https://remix.run/docs/en/main/components/link)
 2. What is NavLinks? Wraps "Link" with additional props for styling active and pending states.
-3. Meta tags are used to add metadata to a webpage. They provide information about the page, such as the title, description, and (historically) keywords. The title and description meta tags help search engines display relevant information about the page in search results. For instance, when someone searches for your website, they will typically see the title and description you've provided in your meta tags, although keywords are no longer a ranking factor for most modern search engines. [Visit this](https://www.wordstream.com/meta-tags)
+3. Meta tags are snippets of text in HTML that provide metadata (information about the page) to web browsers, search engines, and other web services. They are typically placed in the "head" section of a webpage and do not affect the content visible on the page itself. [Visit this](https://www.wordstream.com/meta-tags)
+4. Most commonly used Meta tags:
+
+```html
+<!-- Defines the character encoding for the webpage. -->
+<meta charset="UTF-8" />
+
+<!-- Crucial for responsive design. -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Provides a brief description of the webpage, which is often displayed by search engines in the search results. -->
+<meta name="description" content="This is a description of the webpage." />
+
+<!-- This tag was once important for SEO, but modern search engines like Google now largely ignore it. -->
+<meta name="keywords" content="Remix, JavaScript, Web Development" />
+
+<!-- Instructs search engine crawlers on how to index the page (e.g., whether or not to follow links or index the page). -->
+<meta name="robots" content="index, follow" />
+
+<!-- Sets the author of the page. -->
+<meta name="author" content="John Doe" />
+```
+
+### Custom Imports
+
+```tsx
+/* tailwind.css or styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+/* You can add more global styles or Tailwind-specific configurations here */
+```
+
+Instead of importing components from the CSS file, you need to import the CSS file itself in your root.tsx or entry.client.tsx/entry.server.tsx to make Tailwind work throughout your Remix app.
+
+```tsx
+// root.tsx
+import { Links, Meta, Scripts, ScrollRestoration } from "@remix-run/react";
+import tailwind from "./tailwind.css"; // This imports the entire Tailwind CSS file
+
+export const links = () => [
+  { rel: "stylesheet", href: tailwind }, // Links to your tailwind.css
+];
+
+export default function App() {
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {/* Your app's content */}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+```

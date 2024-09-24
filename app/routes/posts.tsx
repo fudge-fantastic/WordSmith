@@ -23,6 +23,9 @@ export default function Posts() {
                             <span className= "font-bold">Occupation:</span> {item.occupation}
                             <br />
                             <span className= "font-bold">Bio:</span> {item.bio}
+                            <br />
+                            <span className= "font-bold">Location:</span> {item.location}
+
                     </div>
                 ))}
             </div>

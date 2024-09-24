@@ -1,34 +1,58 @@
+<!-- https://www.youtube.com/watch?v=tS7upsfuxmo&t=155s -->
+
 <main class="p-8">
-    <h1 class="text-center text-3xl font-semibold">tailwind<span class="text-cyan-500">PLAY</span></h1>
-    <div class="my-4 h-20 w-full rounded border-2 border-slate-600 bg-slate-200 p-6">
-      <!-- Default CSS can be applied as well, such as using text-[50px] -->
-      <p class="text-center text-2xl font-semibold">The is a text Block</p>
-    </div>
-  
-    <!-- Layout
-      Relative: is always a parent class of the division or section
-      Absolute: is the the child class of the division or section
-      Fixed and Sticky: They're cool -->
-    <div class="fixed h-12 w-12 bg-cyan-400 top-5 rounded-lg border-cyan-700 border-2"></div>
-    <div class="fixed h-12 w-12 bg-cyan-400 top-5 right-8 rounded-lg border-cyan-700 border-2"></div>
-  
-    <!-- Display -->
-    <!--  justify-evenly: Even Space distribution for both left and right side
-          justify-between: Edges have no space, but the components in middle does.
-  
-    -->
-    <div class="flex gap-4 justify-between">
-      <div class="w-14 h-14 bg-cyan-400 rounded-full"></div>
-      <div class="w-14 h-14 bg-cyan-400 rounded-full"></div>
-      <div class="w-14 h-14 bg-cyan-400 rounded-full"></div>
-      <div class="w-14 h-14 bg-cyan-400 rounded-full"></div>
-    </div>
-  </main>
-  
-  
-  <div class="bg-slate-200 h-40 relative">
-    <div class="bg-cyan-400 w-12 h-12 absolute top-0 right-0"></div>
-    <div class="bg-cyan-400 w-12 h-12 absolute top-0 left-0"></div>
-    <div class="bg-cyan-400 w-12 h-12 absolute bottom-0 right-0"></div>
-    <div class="bg-cyan-400 w-12 h-12 absolute bottom-0 left-0"></div>
+  <h1 class="text-center text-3xl font-semibold">tailwind<span class="text-cyan-500">PLAY</span></h1>
+  <div class="my-4 h-20 w-full rounded border-2 border-slate-600 bg-slate-200 p-5">
+    <!-- Default CSS can be applied as well, such as using text-[50px] -->
+    <p class="text-center text-2xl font-semibold">The is a text Block</p>
   </div>
+
+  <!-- Layout
+    Relative: is always a parent class of the division or section
+    Absolute: is the the child class of the division or section
+    Fixed and Sticky: They're cool -->
+  <div class="fixed top-5 h-12 w-12 rounded-lg border-2 border-cyan-700 bg-cyan-400"></div>
+  <div class="fixed right-8 top-5 h-12 w-12 rounded-lg border-2 border-cyan-700 bg-cyan-400"></div>
+
+  <!-- Display 
+    justify-evenly: Even Space distribution for both left and right side
+    justify-between: Edges have no space, but the components in middle does. -->
+
+  <div class="flex justify-between gap-4">
+    <div class="h-14 w-14 rounded-full border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-14 w-14 rounded-full border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-14 w-14 rounded-full border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-14 w-14 rounded-full border-2 border-cyan-700 bg-cyan-400"></div>
+  </div>
+
+  <!-- Grid 
+
+  -->
+  <div class="grid grid-cols-3 gap-10 p-12">
+    <div class="h-40 w-60 rounded-2xl border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-40 w-60 rounded-2xl border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-40 w-60 rounded-2xl border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-40 w-60 rounded-2xl border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-40 w-60 rounded-2xl border-2 border-cyan-700 bg-cyan-400"></div>
+    <div class="h-40 w-60 rounded-2xl border-2 border-cyan-700 bg-cyan-400"></div>
+  </div>
+
+  <div class="hidden md:block">
+    <p class="font-bold">If you're seeing me then I'm probably above the 768 resolution, I big! :D</p>
+  </div>
+
+  <div class="hidden max-md:block">
+    <p class="font-bold">If you're seeing me then I'm probably below 768 resolution, I smol :)</p>
+  </div>
+
+  <button >
+    Touch me, Lmao
+  </button>
+</main>
+
+<div class="relative h-40 bg-slate-200">
+  <div class="absolute right-0 top-0 h-12 w-12 bg-cyan-400"></div>
+  <div class="absolute left-0 top-0 h-12 w-12 bg-cyan-400"></div>
+  <div class="absolute bottom-0 right-0 h-12 w-12 bg-cyan-400"></div>
+  <div class="absolute bottom-0 left-0 h-12 w-12 bg-cyan-400"></div>
+</div>

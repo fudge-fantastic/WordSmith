@@ -1,4 +1,4 @@
-## Notes
+# Notes
 
 1. Optimizing, Rendering UI with the working functions -> .jsx or .tsx
 2. Just keeping the working functions -> .js or .ts
@@ -42,9 +42,9 @@ export default function SinglePost() {
 }
 ```
 
-## Code Demo
+# Code Demo
 
-### Simple import
+## Simple import
 
 ```tsx
 import { app } from "./test_folder_1/demo_child";
@@ -57,7 +57,7 @@ function app() {
 export default app;
 ```
 
-### Using named exports
+## Using named exports
 
 ```tsx
 // file_1.tsx
@@ -87,7 +87,7 @@ function App() {
 export default App;
 ```
 
-### Nested Routing
+## Nested Routing
 
 ```tsx
 // posts.tsx
@@ -125,7 +125,7 @@ export default function Figma() {
 }
 ```
 
-### Links and Navigations
+## Links and Navigations
 
 1. SSN (Server-Side-Navigation): When clicked on link, the whole page is loaded, and the URL changes. Now to prevent the entire page being loaded everytime we hit a link, we can use the "Link" component in Remix. It will only render the specific file. To disable this, we use reloadDocument property in Remix. [Visit here](https://remix.run/docs/en/main/components/link)
 2. What is NavLinks? Wraps "Link" with additional props for styling active and pending states.
@@ -152,7 +152,7 @@ export default function Figma() {
 <meta name="author" content="John Doe" />
 ```
 
-### Custom Imports
+## Custom Imports
 
 ```tsx
 /* tailwind.css or styles.css */
@@ -188,3 +188,61 @@ export default function App() {
   );
 }
 ```
+
+To use the CSS library, we can use a CDN. For instance:
+
+```tsx
+// root.tsx
+export function Layout() {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+        <script src="https://cdn.tailwindcss.com"></script>
+      </head>
+      <body>
+        <Index />
+        <ScrollRestoration />
+        <Scripts />
+        <Outlet />
+      </body>
+    </html>
+  );
+}
+
+export default function App() {}
+```
+
+## Data Mutation
+
+### loader() [This shit only shows the data on the server]
+
+- The loader function runs exclusively on the server-side. This allows you to fetch data before the components are rendered. The data fetched by the loader is then made available to the components during the rendering process.
+
+```tsx
+export async function loader() {
+  return "hello world";
+}
+```
+
+- Use [this link](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) as a Reference.
+
+```tsx
+import { loader as fetchSomeData } from "./content_api";
+
+export async function loader() {
+  const data = await fetchSomeData();
+  const body = JSON.stringify(data);
+
+  return new Response(body, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  });
+}
+```
+
+### useLoaderData()

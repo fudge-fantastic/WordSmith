@@ -1,3 +1,5 @@
+// NOTE: This will only return data from the content_api
+
 export async function loader() {
     const some_data = [
         {

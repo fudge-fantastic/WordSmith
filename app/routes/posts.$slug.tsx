@@ -9,7 +9,7 @@ export async function loader({params}) {
 export default function SinglePost() {
     return (
         <div>
-            <h1>This is a Single Post page</h1>
+            <h1>Are you lost my boi?</h1>
             <Outlet />
         </div>
     )

@@ -7,7 +7,9 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
+
 import "./tailwind.css";
+import NavBar from "./components/NavBar";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,16 +24,6 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export function Index() {
-  return (
-    <div>
-        <h1 className="text-3xl text-center font-bold p-8">
-          Hello Remix<span className="text-yellow-300">JS</span>
-        </h1>
-    </div>
-  );
-}
-
 export function Layout() {
   return (
     <html lang="en">
@@ -42,7 +34,7 @@ export function Layout() {
         <Links />
       </head>
       <body>
-        <Index />
+        <NavBar />
         <ScrollRestoration />
         <Scripts />
         <Outlet />

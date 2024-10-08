@@ -9,16 +9,13 @@ export const meta = () => {
 
 export default function NewIndex() {
   return (
-    <div className="text-center font-mono font-semibold">
-      <Link to="http://localhost:5173/category" reloadDocument>Click me to load the entire page</Link>
-      <p>Using <span className="text-emerald-400 font-bold">Link</span> component in <span className="text-yellow-300 font-bold">Remix's</span>. The above reloads the entire page, using the prop "reloadDocument", and the below renders the specific part only.</p>
-      {/* to load the entire page, we use reloadDocument */}
-      <Link to="http://localhost:5173/category">Click me to load the desired page</Link> 
-      <br/>
-      <br/>
-      <Link to="http://localhost:5173/posts">Take me to <span className="text-sky-300 font-bold">Posts</span></Link>
-      <br/>
-      <Link to="http://localhost:5173/category">Take me to <span className="text-sky-300 font-bold">Categories</span></Link>
+    <div>
+      <div className="text-sm font-semibold p-8">
+        <Link to="http://localhost:5173/category" reloadDocument>Click me to load the entire page</Link>
+        <p>Using <span className="text-emerald-400 font-bold">Link</span> component in <span className="text-yellow-300 font-bold">Remix&apos;s</span>. The above reloads the entire page, using the prop &apos;reloadDocument&apos;, and the below renders the specific part only.</p>
+        {/* to load the entire page, we use reloadDocument */}
+        <Link to="http://localhost:5173/category">Click me to load the desired page</Link> 
+      </div>
     </div>
   )
 }

@@ -15,7 +15,7 @@ export default function Posts() {
             </div>
 
             <div className = "p-8">
-                <h1 className="text-3xl font-semibold">People's Information</h1>
+                <h1 className="text-3xl font-semibold">People&apos;s Information</h1>
                 {data.map((item: User) => (
                     <div className="p-6" key={item.id}>
                             <span className= "font-bold">Name:</span> {item.name}

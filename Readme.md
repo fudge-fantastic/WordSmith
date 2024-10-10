@@ -1,4 +1,4 @@
-# Notes
+# Notes (RemGuide)
 
 1. Optimizing, Rendering UI with the working functions -> .jsx or .tsx
 2. Just keeping the working functions -> .js or .ts

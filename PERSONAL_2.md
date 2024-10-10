@@ -245,4 +245,17 @@ export async function loader() {
 }
 ```
 
-### useLoaderData()
+### [useLoaderData()](https://remix.run/docs/en/main/hooks/use-loader-data)
+```tsx
+import { json } from "@remix-run/node"; // or cloudflare/deno
+import { useLoaderData } from "@remix-run/react";
+
+export async function loader() {
+  return json(await fakeDb.invoices.findAll());
+}
+
+export default function Invoices() {
+  const invoices = useLoaderData<typeof loader>();
+  // ...
+}
+```

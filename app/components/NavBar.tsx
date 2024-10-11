@@ -3,8 +3,8 @@ import NavData from "~/components/NavData";
 
 export default function Index() {
     return (
-      <div className="flex justify-between items-center px-6 py-4 m-2">
-          <h1 className="text-xl font-semibold">Remix<span className="text-yellow-300">JS</span></h1>
+      <div className="flex justify-between items-center p-6">
+          <h1 className="text-xl font-bold">Hype<span className="text-red-500">House</span></h1>
           <ul className="flex items-center gap-8 font-semibold text-sm max-lg:hidden">
                 {NavData.map((item) => {
                   return (

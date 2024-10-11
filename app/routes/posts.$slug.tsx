@@ -1,6 +1,7 @@
 import { useLoaderData, Link } from "@remix-run/react";
 import fetchSomeData from "./content_api" 
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { FaArrowLeft } from "react-icons/fa6";
 
 
 // Find similar content from the DB or the data
@@ -15,18 +16,21 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function SinglePost() {
     const posts = useLoaderData() as Posts[]
     return (
-        <div>
+        <div className="min-h-screen">
             <div className = "m-8">
                 {posts.map((item: Posts) => (
-                    <div className="text-justify m-4 bg-[#272727] p-6 rounded-xl" key={item.id}>
+                    <div className="text-justify m-4 bg-slate-50 p-6 rounded-xl border-1 border-slate-100 shadow-xl" key={item.id}>
                         <h1 className="font-bold text-2xl mb-4">{item.title}</h1>
                         <p>{item.title_content}</p> 
                     </div>
                 ))}
             </div>
 
-            <div className = "text-center font-semibold mb-4">
-                <Link to="http://localhost:5173">Return to <span className="text-blue-400">Home Page</span></Link>
+            <div className = "flex font-semibold mb-4 justify-center">
+                <button className="flex gap-2 items-center duration-200 hover:text-slate-700">
+                    <FaArrowLeft/>
+                    <Link to="/posts">Return back</Link>
+                </button>
             </div>
 
         {/* <Outlet /> */}

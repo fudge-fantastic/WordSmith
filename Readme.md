@@ -218,7 +218,7 @@ export default function App() {}
 
 ## Data Mutation
 
-### loader() [This shit only shows the data on the server]
+### [loader()](https://remix.run/docs/en/main/route/loader)
 
 - The loader function runs exclusively on the server-side. This allows you to fetch data before the components are rendered. The data fetched by the loader is then made available to the components during the rendering process.
 
@@ -259,3 +259,10 @@ export default function Invoices() {
   // ...
 }
 ```
+
+### [useMatches()](https://remix.run/docs/en/main/hooks/use-matches) (NVM, idk how it exactly works)
+To re-use the same data for the nested routes, we can use `useMatches()`. For instance, we have the following routes/pages:
+- posts.tsx (parent route)
+- posts._index.tsx (child route, currently the data is loaded here)
+- posts.$slug.tsx (child route, respective slug is been fetched from the data and the data is shown here)
+

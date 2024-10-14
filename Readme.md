@@ -1,5 +1,7 @@
 # Notes (RemGuide)
 
+*CLT+SHIFT+J* to beautify JSON
+
 1. Optimizing, Rendering UI with the working functions -> .jsx or .tsx
 2. Just keeping the working functions -> .js or .ts
 3. In the routes folder, if added a file (.tsx or .jsx), you can access the file in the URL by http://localhost:5173/demo
@@ -265,4 +267,34 @@ To re-use the same data for the nested routes, we can use `useMatches()`. For in
 - posts.tsx (parent route)
 - posts._index.tsx (child route, currently the data is loaded here)
 - posts.$slug.tsx (child route, respective slug is been fetched from the data and the data is shown here)
+
+### [Remix Form](https://remix.run/docs/en/main/components/form)
+While creating a form, ensure to keep a action method. The action method will be called when the form is submitted.
+```tsx
+// demo form
+import some_data from "./content_api"
+
+export async function action({request}: {request: Request}) {
+    console.log("Action Works")
+    const body = await request.formData();
+    const title = body.get('title') as string;
+    console.log(title)
+    return (redirect("/posts"), json({success: true}))
+}
+
+export async function action({ request }: { request: Request }) {
+  const title = body.get('title') as string;
+  const data = await some_data();
+  return json(data);
+
+export default function DemoForm() {
+  return (
+    <Form method="post">
+      <input type="text" name="title" />
+      <button type="submit">Submit</button>
+    </Form>
+  );
+}
+}
+```
 

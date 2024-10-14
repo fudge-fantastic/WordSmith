@@ -1,11 +1,13 @@
 import { Link, Outlet, useLoaderData} from "@remix-run/react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-import fetchSomeData  from "./content_api" 
+// import fetchSomeData  from "./content_api"
+import  fetchSomeData  from "./../../content_api.json" 
 import { Button } from "@nextui-org/button";
 
 export async function loader() {
-    const data = await fetchSomeData();
-    console.log(data)
+    // const data = await fetchSomeData();
+    const data = fetchSomeData;
+    // console.log(data)
     return data
 }
 
@@ -27,10 +29,10 @@ export default function PostsPage() {
             </div>
             <div className = "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                 {data.map((item: Posts) => (
-                    <div className="relative flex flex-col justify-between text-sm m-4 bg-slate-50 p-4 rounded-xl shadow-xl border-1 border-slate-100" key={item.id}>
+                    <div className="relative flex flex-col justify-between text-sm m-4 bg-white p-4 rounded-xl shadow-xl border-1 border-slate-100" key={item.id}>
                             <h1 className="font-bold text-lg">{item.title}</h1> 
                             <p className="mb-4 mt-2">by <span className="font-bold">{item.author}</span> on <span className="font-bold">{item.date}</span></p>
-                            <p className="mb-3 text-justify">{item.title_content_brief}</p>
+                            <p className="mb-3 text-justify">{item.summary}</p>
                             <button className="flex-1 flex flex-col justify-end"><Link to={`/posts/${item.slug}`} className="font-bold flex gap-2 items-center mt-1 hover:text-slate-600 duration-200">Know more! <FaArrowUpRightFromSquare /></Link></button>
                     </div>
                 ))}
@@ -48,12 +50,12 @@ export default function PostsPage() {
 interface Posts {
     id: number,
     title: string,
-    title_content_brief: string,
-    title_content: string,
+    summary: string,
     author: string,
     date: number,
-    category: string,
     slug: string,
+    description: string,
+    category: string,
     // bio: string,
     // hobbies: string[],
     // location: string,

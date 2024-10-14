@@ -6,10 +6,10 @@ export default async function loader() {
       slug: "the-evolution-of-full-stack-development",
       author: "John Doe",
       date: "2023-09-15",
-      title_content_brief: `
+      summary: `
         Full-stack development has changed drastically in the last decade. From monolithic architectures to microservices, developers have seen a sea of changes. John Doe, a full-stack engineer with over 7 years of experience, shares insights into the evolution of full-stack development, the skills needed to stay relevant, and what the future holds for this vital role in the tech industry.
       `,
-      title_content: `
+      description: `
     Full-stack development has come a long way. Ten years ago, developers focused primarily on building either the front-end or the back-end of applications. 
 
     As technology evolved, companies started realizing the importance of having developers who could navigate both sides of the tech stack. This gave rise to the full-stack developer role. Initially, these developers focused on simple stacks such as LAMP (Linux, Apache, MySQL, PHP), but the explosion of JavaScript and frameworks like React, Node.js, and Vue.js allowed for more dynamic and complex applications.
@@ -30,10 +30,10 @@ export default async function loader() {
       slug: "the-art-of-ux-ui-a-visual-revolution",
       author: "Jane Smith",
       date: "2023-09-18",
-      title_content_brief: `
+      summary: `
         In today's digital age, visual storytelling through design has become an essential aspect of branding and user engagement. Jane Smith, a renowned graphic designer specializing in UX/UI, discusses how design influences the user experience and the impact of good UX/UI design on business growth.
       `,
-      title_content: `
+      description: `
         User Experience (UX) and User Interface (UI) design are the cornerstones of any successful digital product today. Jane Smith, a leading figure in the design world, has spent the last decade mastering the art of UX/UI. "Great design is about more than just aesthetics; it’s about function," she says. Jane believes that good design allows users to complete tasks easily and enjoyably.
 
         Her design journey started with traditional graphic design, but as the digital landscape expanded, she transitioned to digital platforms. "The shift to digital design opened up new avenues for creativity, but it also brought new challenges," Jane explains. "Designers now have to consider not just how something looks, but how it feels to use." She argues that users today expect seamless experiences across all platforms and devices, and it's up to designers to meet these high expectations.
@@ -50,10 +50,10 @@ export default async function loader() {
       slug: "project-management-in-the-digital-era",
       author: "Mark Johnson",
       date: "2023-10-01",
-      title_content_brief: `
+      summary: `
         Project management is an essential skill in today's fast-paced tech industry. Mark Johnson, with over 15 years of experience, delves into the challenges and strategies for leading teams in the digital era. From Agile methodologies to Scrum, Mark shares his approach to handling projects under tight deadlines.
       `,
-      title_content: `
+      description: `
         As the tech landscape evolves, so too does the role of a project manager. Mark Johnson, who has spent over a decade guiding teams in the software development world, emphasizes the importance of adaptability and foresight. "A good project manager is like a navigator, constantly adjusting course based on feedback from both the team and the client," Mark explains.
 
         His career has taken him through various project management methodologies, but he is particularly fond of Agile and Scrum. "Agile is about flexibility, collaboration, and delivering value fast. It’s perfect for the fast-moving tech world where requirements can change in the blink of an eye," he says. Mark’s teams are known for their ability to deliver projects on time without sacrificing quality, thanks to his meticulous planning and resource management.
@@ -70,10 +70,10 @@ export default async function loader() {
       slug: "the-power-of-big-data",
       author: "Lucy Brown",
       date: "2023-09-25",
-      title_content_brief: `
+      summary: `
         In a world driven by data, the role of a data analyst has become critical. Lucy Brown, a fresh graduate in Data Science, shares her insights into the power of big data and how companies are leveraging it to make informed decisions that drive business growth.
       `,
-      title_content: `
+      description: `
         Big data is no longer a buzzword; it’s a key business asset. Lucy Brown, a young data analyst making waves in the industry, is passionate about unlocking the hidden potential within massive datasets. "Data is the new oil, and those who know how to mine it will lead the future," she says.
 
         Despite being new to the field, Lucy has already worked on projects that have helped companies improve efficiency and make data-driven decisions. "I’m constantly amazed at what we can uncover with data," Lucy explains. From customer behavior analysis to predictive modeling, her work is paving the way for more informed business strategies.
@@ -90,10 +90,10 @@ export default async function loader() {
       slug: "reforming-education-for-the-future",
       author: "Emma Wilson",
       date: "2023-10-03",
-      title_content_brief: `
+      summary: `
         Emma Wilson, a veteran teacher, shares her views on the future of education and the reforms needed to make learning more engaging for students. With over 12 years of experience, Emma highlights the importance of personalized learning and the integration of technology in the classroom.
       `,
-      title_content: `
+      description: `
         Education is at a crossroads. Traditional teaching methods are no longer enough to meet the needs of today’s learners, according to Emma Wilson, a seasoned teacher with over 12 years in the field. "The classroom of the future will be one where students learn at their own pace, with lessons tailored to their individual strengths and interests," Emma says.
 
         Emma has long been an advocate for educational reform, pushing for the adoption of new technologies and personalized learning plans. "Technology in the classroom is not just about making lessons more engaging; it's about giving every student the tools they need to succeed," she explains.

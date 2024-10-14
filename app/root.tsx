@@ -35,12 +35,12 @@ export function Layout() {
         <Links />
       </head>
       <body>
-        <NextUIProvider>
-          <NavBar />
-          <ScrollRestoration />
-          <Scripts />
-          <Outlet />
-          <Footer />
+        <NextUIProvider >
+            <NavBar />
+            <ScrollRestoration />
+            <Scripts />
+            <Outlet />
+            <Footer />
         </NextUIProvider>
       </body>
     </html>

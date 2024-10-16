@@ -1,7 +1,8 @@
+// Imports
 import { Input, Textarea } from "@nextui-org/input";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { json } from "@remix-run/node";
-import some_data from "./content_api";
+import some_data from "../shared/content_api";
 import fs from "fs";
 import categories_data from "./../shared/categories_data";
 import { Form, useNavigation } from "@remix-run/react";
@@ -16,7 +17,7 @@ function slugify(title: string) {
 }
 
 // date logic
-function getCurrentDate() {
+export function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
     const monthNames = [
@@ -29,13 +30,14 @@ function getCurrentDate() {
 }
 
 export async function action({ request }: { request: Request }) {
-
     console.log("Action method works");
     // get data
     const data = await some_data();
     // get form data
     const body = await request.formData();
+    // id being saved as the ([last id] + 1). So if there are no posts, it will be 1
     const id = data[data.length - 1].id + 1;
+    const postId = data[data.length - 1].postId + 1;
     const title = body.get('title') as string;
     const summary = body.get('summary') as string;
     const description = body.get('description') as string;
@@ -51,14 +53,15 @@ export async function action({ request }: { request: Request }) {
 
     // write data to file
     const newPost = {
-        id, title, slug, author, date, summary, description, category,
+        id, postId, title, slug, author, date, summary, description, category,
     };
 
     // new data
     const newData = [...data, newPost];
 
+    // write to file
     try {
-        const filePath = "./content_api.json";
+        const filePath = "./../data/content_api.json";
         fs.writeFileSync(filePath, JSON.stringify(newData, null, 2));
     } catch (error) {
         console.log("Error writing to file:", error);

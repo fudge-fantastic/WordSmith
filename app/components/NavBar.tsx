@@ -9,7 +9,7 @@ export default function Index() {
                 {NavData.map((item) => {
                   return (
                   <li key={item.name}>
-                    <Link className='hover:text-sky-300 duration-200' to={item.href}>{item.name}</Link>
+                    <Link className='hover:text-sky-300 duration-200 ease-in-out' to={item.href}>{item.name}</Link>
                   </li>)
                 })}
           </ul>

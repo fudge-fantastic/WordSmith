@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "postId": 1,
     "title": "The Evolution of Full-Stack Development",
     "slug": "the-evolution-of-full-stack-development",
     "author": "John Doe",
@@ -11,6 +12,7 @@
   },
   {
     "id": 2,
+    "postId": 2,
     "title": "The Art of UX/UI: A Visual Revolution",
     "slug": "the-art-of-ux-ui-a-visual-revolution",
     "author": "Jane Smith",
@@ -21,6 +23,7 @@
   },
   {
     "id": 3,
+    "postId": 3,
     "title": "Project Management in the Digital Era: Leading Tech Teams",
     "slug": "project-management-in-the-digital-era",
     "author": "Mark Johnson",
@@ -31,6 +34,7 @@
   },
   {
     "id": 4,
+    "postId": 4,
     "title": "The Power of Big Data: A Data Analyst's Perspective",
     "slug": "the-power-of-big-data",
     "author": "Lucy Brown",
@@ -41,6 +45,7 @@
   },
   {
     "id": 5,
+    "postId": 5,
     "title": "Reforming Education for the Future",
     "slug": "reforming-education-for-the-future",
     "author": "Emma Wilson",
@@ -51,12 +56,13 @@
   },
   {
     "id": 6,
-    "title": "dawdawdawdawd",
-    "slug": "dawdawdawdawd",
-    "author": "dwdawawdawdawdawd",
+    "postId": 6,
+    "title": "An open-source web framework",
+    "slug": "an-open-source-web-framework",
+    "author": "Aaditya Pandagle",
     "date": "15-October-2024",
-    "summary": "dwadawdawdawdawd",
-    "description": "dwadawdawdawdawdwad",
-    "category": "Machine Learning"
+    "summary": "Remix is an open-source web framework that's used to build web applications with front-end frameworks like React and Vue.js",
+    "description": "Remix was developed by the same team that created React Router, and was initially available as paid software. It was made open source in October 2021, and Shopify acquired the development team in 2022. The team has promised to keep development open-source and independent. ",
+    "category": "Open Source"
   }
 ]

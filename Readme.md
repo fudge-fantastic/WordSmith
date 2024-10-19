@@ -1,6 +1,6 @@
 # Notes (RemGuide)
 
-*CLT+SHIFT+J* to beautify JSON
+*CLT+SHIFT+J* to beautify JSON. And keep the database in the root directory
 
 1. Optimizing, Rendering UI with the working functions -> .jsx or .tsx
 2. Just keeping the working functions -> .js or .ts

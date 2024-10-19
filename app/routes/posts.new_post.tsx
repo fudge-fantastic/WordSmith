@@ -2,7 +2,8 @@
 import { Input, Textarea } from "@nextui-org/input";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { json } from "@remix-run/node";
-import some_data from "../shared/content_api";
+// import some_data from "../shared/content_api";
+import some_data from "./../../posts_db.json";
 import fs from "fs";
 import categories_data from "./../shared/categories_data";
 import { Form, useNavigation } from "@remix-run/react";
@@ -32,7 +33,8 @@ export function getCurrentDate() {
 export async function action({ request }: { request: Request }) {
     console.log("Action method works");
     // get data
-    const data = await some_data();
+    // const data = await some_data();
+    const data = some_data;
     // get form data
     const body = await request.formData();
     // id being saved as the ([last id] + 1). So if there are no posts, it will be 1
@@ -61,7 +63,7 @@ export async function action({ request }: { request: Request }) {
 
     // write to file
     try {
-        const filePath = "./../data/content_api.json";
+        const filePath = "./posts_db.json";
         fs.writeFileSync(filePath, JSON.stringify(newData, null, 2));
     } catch (error) {
         console.log("Error writing to file:", error);

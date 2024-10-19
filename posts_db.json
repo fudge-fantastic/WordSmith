@@ -57,12 +57,23 @@
   {
     "id": 6,
     "postId": 6,
-    "title": "An open-source web framework",
-    "slug": "an-open-source-web-framework",
+    "title": "What is Generative AI",
+    "slug": "what-is-generative-ai",
     "author": "Aaditya Pandagle",
-    "date": "15-October-2024",
-    "summary": "Remix is an open-source web framework that's used to build web applications with front-end frameworks like React and Vue.js",
-    "description": "Remix was developed by the same team that created React Router, and was initially available as paid software. It was made open source in October 2021, and Shopify acquired the development team in 2022. The team has promised to keep development open-source and independent. ",
-    "category": "Open Source"
+    "date": "19-October-2024",
+    "summary": "Generative artificial intelligence is a subset of artificial intelligence that uses generative models to produce text, images, videos, or other forms of data.",
+    "description": "Generative AI can be used in a variety of industries, including:\nsoftware development, healthcare, finance, entertainment, customer service, sales and marketing, art, writing, fashion, and product design. \nWhile generative AI can be used for many purposes, there are also concerns about its misuse. For example, generative AI could be used to create fake news or deepfakes to deceive people. It could also be used to replace human jobs.",
+    "category": "Artificial Intelligence"
+  },
+  {
+    "id": 7,
+    "postId": 7,
+    "title": "dwadwad",
+    "slug": "dwadwad",
+    "author": "dwadawd",
+    "date": "19-October-2024",
+    "summary": "dawdawdad",
+    "description": "dwadawdawd",
+    "category": "Machine Learning"
   }
 ]

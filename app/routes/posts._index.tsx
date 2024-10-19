@@ -1,7 +1,7 @@
 import { Link, Outlet, useLoaderData} from "@remix-run/react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-// import fetchSomeData  from "./content_api"
-import  fetchSomeData  from "./../data/content_api.json" 
+import fetchSomeData  from "./../../posts_db.json"
+// import  fetchSomeData  from "./../shared/content_api" 
 import { Button } from "@nextui-org/button";
 
 export async function loader() {
@@ -48,14 +48,15 @@ export default function PostsPage() {
 }
 
 interface Posts {
-    id: number,
-    title: string,
-    summary: string,
-    author: string,
-    date: number,
-    slug: string,
-    description: string,
-    category: string,
+    id: number
+    postId: number
+    title: string
+    slug: string
+    author: string
+    date: string
+    summary: string
+    description: string
+    category: string
     // bio: string,
     // hobbies: string[],
     // location: string,

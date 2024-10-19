@@ -9,3 +9,11 @@ export async function loader() {
     // you can add your custom status code as well
     return json(data, {status: 200})
 }
+
+export default function example() {
+    return (
+        <div>
+            <h1 className="text-xl text-center">This is the example page, WIP</h1>
+        </div>
+    )
+}

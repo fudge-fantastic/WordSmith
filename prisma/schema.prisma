@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // here will be our database url/name. For our case for now. it's sqlite
+  provider = "sqlite"
+  url      = "file:../data/db.sqlite"
+}
+
+// Notice the plurals and singulars
+
+model User {
+// NameOfColoumn - Type - KeyType - Default Number
+  id      Int    @id @default(autoincrement())
+  name  String
+  email String  @unique
+  password  String
+
+  // One user can posts and comments multiple times
+  posts Post[]
+  comments Comment[]
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  postId      Int
+  title       String
+  slug        String     @unique
+  date        DateTime   @default(now())
+  summary     String
+  description String
+  category    String
+
+  // Define the relation to the User model
+  user        User       @relation(fields: [userId], references: [id])
+
+  // Add this relation field to link back to the Comment model
+  comments    Comment[]  // One post can have many comments
+
+  // Enforce unique constraints for id and slug
+  @@unique([id, slug])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  postSlug  String 
+  comment   String
+  date      DateTime @default(now())
+
+  // Define the relation to the User model
+  user      User     @relation(fields: [userId], references: [id])
+
+  // Define the relation to the Post model
+  post      Post     @relation(fields: [postId, postSlug], references: [id, slug])
+}

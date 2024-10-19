@@ -51,3 +51,82 @@ The `root.tsx` file acts as the global wrapper for your app, handling things lik
 - **Server-Side Rendering** (`entry.server.tsx`) prepares the initial HTML response when a request is made to your app.
 - **Client-Side Hydration** (`entry.client.tsx`) takes over after the page is loaded, turning the static HTML into an interactive React app.
 - **Global Layout and Styling** (`root.tsx`) defines the layout of your app and injects global assets like fonts and stylesheets.
+
+
+---
+
+
+## DataBase
+
+```bash
+npm install prisma --save-dev
+
+# for commands
+npx prisma
+
+npx prisma init
+```
+
+Default file looks like below:
+```jsx
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // here will be our database url/name. For our case for now. it's sqlite
+  provider = "sqlite"
+  url      = "file: ./../app/data/db.sqlite"
+}
+
+// Notice the plurals and singulars
+
+model User {
+// NameOfColoumn - Type - KeyType - Default Number
+  id      Int    @id @default(autoincrement())
+  name  String
+  email String  @unique
+  password  String
+
+  // One user can posts and comments multiple times
+  posts Post[]
+  comments Comment[]
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  postId      Int
+  title       String
+  slug        String     @unique
+  date        DateTime   @default(now())
+  summary     String
+  description String
+  category    String
+
+  // Define the relation to the User model
+  user        User       @relation(fields: [userId], references: [id])
+
+  // Add this relation field to link back to the Comment model
+  comments    Comment[]  // One post can have many comments
+
+  // Enforce unique constraints for id and slug
+  @@unique([id, slug])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  postSlug  String 
+  comment   String
+  date      DateTime @default(now())
+
+  // Define the relation to the User model
+  user      User     @relation(fields: [userId], references: [id])
+
+  // Define the relation to the Post model
+  post      Post     @relation(fields: [postId, postSlug], references: [id, slug])
+}
+```
+

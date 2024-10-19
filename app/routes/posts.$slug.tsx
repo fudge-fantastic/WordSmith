@@ -1,48 +1,33 @@
-import { useLoaderData, Link, useActionData } from "@remix-run/react";
-import fetchSomeData from "./../data/content_api.json";
+import { useLoaderData, Link, useActionData, useNavigation } from "@remix-run/react";
+import fetchSomeData from "./../../posts_db.json";
 import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { FaArrowLeft } from "react-icons/fa6";
 import Comments from "~/components/CommentsSection";
-import commentsData from "~/data/comments.json";
+import commentsData from "./../../comments.json";
 import { getCurrentDate } from "./posts.new_post";
-import fs from "fs/promises"; // Use fs.promises for async operations
+import fs from "fs/promises"; 
+import { useEffect, useState } from "react";
 
 // Find similar content from the DB or the data
 export async function loader({ params }: LoaderFunctionArgs) {
-    try {
-        const data = fetchSomeData;
-        const slug = params.slug;
+    const data = fetchSomeData;
+    const slug = params.slug;
+    const post = data.find((item: { slug: string | undefined }) => item.slug === slug);
+    if (!post) {throw new Error("Post not found.");}
+    // Find comments based on the postId
+    const filteredComments = commentsData.find((comment) => comment.postId === post.postId)?.comments || [];
+    return json({ post: [post], filtered_comments: filteredComments });
+    // return json(post);
+}  
 
-        if (!slug) {
-            throw new Error("No slug provided.");
-        }
-
-        // Find post based on the slug
-        const post = data.find((item: { slug: string | undefined }) => item.slug === slug);
-
-        if (!post) {
-            throw new Error("Post not found.");
-        }
-
-        // Find comments based on the postId
-        const filteredComments = commentsData.find((comment) => comment.postId === post.postId)?.comments || [];
-
-        return json({ post: [post], filtered_comments: filteredComments });
-
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error("Error in loader:", error);
-            return json({ error: error.message }, { status: 500 });
-        } else {
-            console.error("Unknown error:", error);
-            return json({ error: 'An unknown error occurred' }, { status: 500 });
-        }
-    }
-}
+function delay(ms: number | undefined) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 // Catch form data from the request (hit on submit from CommentsSection.tsx)
 export async function action({ request }: { request: Request }) {
     try {
+        await delay(5000)
         const body = await request.formData();
         const postId = Number(body.get("postId"));
         const author = body.get("author")?.toString() || "Anonymous";
@@ -50,25 +35,25 @@ export async function action({ request }: { request: Request }) {
         const date = getCurrentDate();
 
         if (!content || content.trim() === "") {
+            console.log("Comment cannot be empty.");
             return json({ error: "Comment cannot be empty." }, { status: 400 });
         }
 
         // Find the post to append the comment to
         const postComments = commentsData.find((post) => post.postId === postId);
 
-        if (!postComments) {
-            return json({ error: "Post not found." }, { status: 404 });
-        }
+        if (!postComments) {return json({ error: "Post not found." }, { status: 404 });}
 
         // Generate new commentId by incrementing the last commentId
         const lastComment = postComments.comments[postComments.comments.length - 1];
         const newCommentId = lastComment ? lastComment.commentId + 1 : 1;
 
         const newComment = { postId, commentId: newCommentId, author, content, date };
+        // Push the new comment 
         postComments.comments.push(newComment);
 
         // Save the updated comments data asynchronously
-        const commentsFilePath = "./../shared/comments_data";
+        const commentsFilePath = "./comments.json";
 
         try {
             await fs.writeFile(commentsFilePath, JSON.stringify(commentsData, null, 2));
@@ -86,8 +71,25 @@ export async function action({ request }: { request: Request }) {
 }
 
 export default function SinglePost() {
-    const { post, filtered_comments } = useLoaderData<LoaderData>();
+    // const { post, filtered_comments } = useLoaderData<LoaderData>(); //Loading the data
+    const { post, filtered_comments } = useLoaderData<LoaderData>(); //Loading the data
     const actionData = useActionData();
+    const navigation = useNavigation();
+    const [comments, setComments] = useState(filtered_comments);
+
+    useEffect(() => {
+        if (navigation.formData && navigation.formData.get("content")) {
+            const newComment = {
+                // "postId": navigation.formData.get("postId")?.toString() ?? "",
+                "commentId": comments.length + 1, // generate a new commentId
+                "author": navigation.formData.get("author")?.toString() ?? "",
+                "content": navigation.formData.get("content")?.toString() ?? "",
+                "date": getCurrentDate()
+            }
+            const updatedData = [...comments, newComment];
+            setComments(updatedData);
+        }
+    }, [comments, navigation.formData])
 
     if (!post || post.length === 0) {
         return <div>Error loading the post.</div>;

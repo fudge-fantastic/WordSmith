@@ -130,3 +130,15 @@ model Comment {
 }
 ```
 
+
+https://dribbble.com/shots/21043406-Museum-Website-Concept
+https://preview.studio.site/live/Kwa5PG2YqX
+```css
+background: #1a1c19
+c1: #333124
+c2: #e0d6c2
+c3: #8F8868
+c4: #b5a38c
+c5: #976c54
+```
+ref

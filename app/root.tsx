@@ -34,7 +34,7 @@ export function Layout() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen">
         <NextUIProvider >
             <NavBar />
             <ScrollRestoration />

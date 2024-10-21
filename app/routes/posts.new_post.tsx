@@ -133,7 +133,7 @@ export default function CreatePosts() {
     return (
         <div className="min-h-screen flex flex-col items-center">
             <h1 className="text-2xl font-semibold">Oh boi, here we go!</h1>
-            <div className="bg-white w-4/5 min-h-auto m-6 rounded-xl border-1 border-slate-100 shadow-xl">
+            <div className="bg-green_vanila w-4/5 min-h-auto m-6 rounded-xl shadow-xl">
                 <Form method="post" className="relative m-6 rounded-xl space-y-5" onSubmit={handleSubmit}>
                     <div className="flex justify-between gap-5">
                         <Input
@@ -143,7 +143,8 @@ export default function CreatePosts() {
                             color={errors.author ? "danger" : "default"}
                             label="Your Name"
                             placeholder="Enter your name here"
-                            className="w-full font-semibold"
+                            // className={"w-full font-semibold"}
+                            className={`w-full font-semibold rounded-sm bg-green_vanila ${errors.author ? 'border-red-500' : 'border-gray-300'}`}
                             radius="sm"
                             variant="flat"
                             name="author"

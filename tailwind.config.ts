@@ -16,9 +16,22 @@ export default {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
+        'aflux': ['Afacad Flux'] 
+
       },
+
+      colors: {
+        'vanila': '#e0d6c2',
+        'green_vanila': '#8F8868',
+        'red_vanila': '#976C54',
+        'skin_vanila': '#B5A38D',
+        'dark_vanila': '#1a1c19',
+        'vanila_text': "#342415"
+      }
     },
   },
   darkMode: "class",
-  plugins: [nextui()]
+  plugins: [nextui({
+    addCommonColors: true,
+  })]
 } satisfies Config;

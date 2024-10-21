@@ -1,9 +1,5 @@
 export default [
     {
-        name: "Home",
-        href: "/",
-    },
-    {
         name: "Posts",
         href: "/posts",
     },

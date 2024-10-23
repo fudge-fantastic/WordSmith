@@ -56,83 +56,9 @@ The `root.tsx` file acts as the global wrapper for your app, handling things lik
 ---
 
 
-## DataBase
-
-```bash
-npm install prisma --save-dev
-
-# for commands
-npx prisma
-
-npx prisma init
-```
-
-Default file looks like below:
-```jsx
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  // here will be our database url/name. For our case for now. it's sqlite
-  provider = "sqlite"
-  url      = "file: ./../app/data/db.sqlite"
-}
-
-// Notice the plurals and singulars
-
-model User {
-// NameOfColoumn - Type - KeyType - Default Number
-  id      Int    @id @default(autoincrement())
-  name  String
-  email String  @unique
-  password  String
-
-  // One user can posts and comments multiple times
-  posts Post[]
-  comments Comment[]
-}
-
-model Post {
-  id          Int        @id @default(autoincrement())
-  userId      Int
-  postId      Int
-  title       String
-  slug        String     @unique
-  date        DateTime   @default(now())
-  summary     String
-  description String
-  category    String
-
-  // Define the relation to the User model
-  user        User       @relation(fields: [userId], references: [id])
-
-  // Add this relation field to link back to the Comment model
-  comments    Comment[]  // One post can have many comments
-
-  // Enforce unique constraints for id and slug
-  @@unique([id, slug])
-}
-
-model Comment {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  postId    Int
-  postSlug  String 
-  comment   String
-  date      DateTime @default(now())
-
-  // Define the relation to the User model
-  user      User     @relation(fields: [userId], references: [id])
-
-  // Define the relation to the Post model
-  post      Post     @relation(fields: [postId, postSlug], references: [id, slug])
-}
-```
-
-
 https://dribbble.com/shots/21043406-Museum-Website-Concept
 https://preview.studio.site/live/Kwa5PG2YqX
+
 ```css
 background: #1a1c19
 c1: #333124

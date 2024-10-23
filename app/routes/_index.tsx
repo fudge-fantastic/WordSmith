@@ -3,17 +3,16 @@ import Hero from "~/components/index/Hero";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "WordSmith" },
+    { name: "description", content: "Welcome to WordSmith!" },
   ];
 };
 
 export default function Index() {
   return (
-    <>
+    <div>
       <Hero />
-      <div></div>
-    </>
+    </div>
   );
 }
 

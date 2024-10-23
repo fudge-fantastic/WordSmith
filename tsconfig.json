@@ -8,9 +8,11 @@
     "**/.client/**/*.tsx"
   ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": ["DOM", "DOM.Iterable", "ES2022", "ESNext"],
     "types": ["@remix-run/node", "vite/client"],
     "isolatedModules": true,
+    "sourceMap": true,
+    "outDir": "./build/server",
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "module": "ESNext",

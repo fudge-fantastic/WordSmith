@@ -222,7 +222,7 @@ export default function App() {}
 
 ### [loader()](https://remix.run/docs/en/main/route/loader)
 
-- The loader function runs exclusively on the server-side. This allows you to fetch data before the components are rendered. The data fetched by the loader is then made available to the components during the rendering process.
+- The loader function runs exclusively on the server-side. This allows you to fetch data before the components are rendered. The data fetched by the loader is then made available to the components during the rendering process. Mainly, if you do not want to show the data to the client side, we can use Loader!
 
 ```tsx
 export async function loader() {

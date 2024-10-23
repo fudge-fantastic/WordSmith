@@ -1,6 +1,7 @@
-import { Link, useMatches, useParams } from "@remix-run/react";
+import { Form, Link, useMatches, useParams } from "@remix-run/react";
 import type { Posts } from "../shared/types";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { Input, Textarea } from "@nextui-org/react";
 
 export default function SinglePost() {
     const matches = useMatches();
@@ -37,12 +38,34 @@ export default function SinglePost() {
             {/* Display comments */}
             <div className="mx-6 p-5 bg-vanila rounded-3xl text-vanila_text">
                 <h2 className="text-xl font-semibold">Comments <span className="text-lg">{`{${post.comments.length}}`}</span></h2>
-                <hr className="mb-3 mt-1 border-dark_vanila"></hr>
+                {/* Comment form */}
+                <Form method="post" className="space-y-3 font-semibold">
+                    <Input 
+                        name="author"
+                        radius="sm"
+                        label="Author"
+                        placeholder="Your name here (optional)"
+                        className="w-1/2"
+                        size="sm"
+                    />
+                    <Textarea
+                        label="Comment"
+                        radius="sm"
+                        placeholder="Add your comment here"
+                        name="content"
+                        isRequired
+                        size="sm"
+                    />
+                    <button type="submit" className="font-semibold px-3 py-1 border-2 hover:bg-red_vanila duration-200 hover:border-red_vanila hover:text-white border-red_vanila rounded-xl text-dark_vanila">
+                        Submit!
+                    </button>
+                </Form>
+                <hr className="my-4 border-dark_vanila"></hr>
                 <ul>
                     {post.comments.map((comment) => (
                         <li key={comment.id}>
                             {comment.comment} -{" "}
-                            <i>{new Date(comment.date).toLocaleDateString()}</i>
+                            <i className="font-semibold">{new Date(comment.date).toLocaleDateString()}</i>
                         </li>
                     ))}
                 </ul>

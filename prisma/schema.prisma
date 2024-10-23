@@ -1,65 +1,56 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  // here will be our database url/name. For our case for now. it's sqlite
-  provider = "sqlite"
-  url      = "file:../data/db.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-// Notice the plurals and singulars
-
+// One to Many
 model User {
-// NameOfColoumn - Type - KeyType - Default Number
-  id      Int    @id @default(autoincrement())
-  name  String
-  email String  @unique
-  password  String
+  id              String    @id @default(uuid())
+  name            String    @db.VarChar(30)
+  email           String    @unique
+  password        String
+  bio             String?    
+  role            Role      @default(BASIC)
+  writtenPosts    Post[]    @relation("WrittenPosts")
+  writtenComments Comment[] @relation("WrittenComments") // New relation
 
-  // One user can posts and comments multiple times
-  posts Post[]
-  comments Comment[]
+  // @@unique([name, birthDate])
+  @@index([email])
 }
 
 model Post {
-  id          Int        @id @default(autoincrement())
-  userId      Int
-  postId      Int
-  title       String
-  slug        String     @unique
-  date        DateTime   @default(now())
-  summary     String
-  description String
-  category    String
+  id           String    @id @default(uuid())
+  authorId     String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now())
+  author       User      @relation("WrittenPosts", fields: [authorId], references: [id])
+  
+  title        String    @db.VarChar(100)
+  slug         String
+  summary      String    @db.VarChar(500)
+  description  String
+  category     String
+  comments     Comment[] @relation("PostComments") // New relation for comments
+}
 
-  // Define the relation to the User model
-  user        User       @relation(fields: [userId], references: [id])
-
-  // Add this relation field to link back to the Comment model
-  comments    Comment[]  // One post can have many comments
-
-  // Enforce unique constraints for id and slug
-  @@unique([id, slug])
+enum Role {
+  BASIC
+  ADMIN
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  postId    Int
-  postSlug  String 
-  comment   String
-  date      DateTime @default(now())
-
-  // Define the relation to the User model
-  user      User     @relation(fields: [userId], references: [id])
-
-  // Define the relation to the Post model
-  post      Post     @relation(fields: [postId, postSlug], references: [id, slug])
+  id        String   @id @default(uuid())
+  authorId  String
+  postId    String
+  createdAt DateTime @default(now())
+  author    User     @relation("WrittenComments", fields: [authorId], references: [id])
+  post      Post     @relation("PostComments", fields: [postId], references: [id])
+  content   String
 }
+
+
+// Run the command to let db know the changes you've made: npx prisma migrate dev --name init

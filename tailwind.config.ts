@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import {nextui} from "@nextui-org/react";
 
+
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}", "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -16,7 +17,11 @@ export default {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
-        'aflux': ['Afacad Flux'] 
+        // add your fonts here with respect to their names
+        aflux: ['Afacad Flux'],
+        raleway: ['Raleway'],
+        rhd: ['Red+Hat+Display'],
+        cinzel: ['Cinzel'],
 
       },
 

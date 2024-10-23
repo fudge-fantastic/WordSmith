@@ -7,7 +7,7 @@ export default function PostsPage() {
     const matches = useMatches();
     const data = matches[1].data as Posts[];
     // Here, We're fetching the entire data! 
-    console.log("Comming from post_index:", data)
+    console.log("Comming from post_index:", data[0])
 
     // console.log("matches:", matches)
     // const posts = matches[1]?.data?.posts || [];

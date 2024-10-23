@@ -2,12 +2,10 @@
 import { Input, Textarea } from "@nextui-org/input";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { json } from "@remix-run/node";
-// import some_data from "../shared/content_api";
-import some_data from "./../../posts_db.json";
-import fs from "fs";
 import categories_data from "./../shared/categories_data";
 import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
+import {createPost} from "../db/query";
 
 // slug logic
 function slugify(title: string) {
@@ -32,20 +30,15 @@ export function getCurrentDate() {
 
 export async function action({ request }: { request: Request }) {
     console.log("Action method works");
-    // get data
-    // const data = await some_data();
-    const data = some_data;
-    // get form data
     const body = await request.formData();
-    // id being saved as the ([last id] + 1). So if there are no posts, it will be 1
-    const id = data[data.length - 1].id + 1;
-    const postId = data[data.length - 1].postId + 1;
+    const userId = Number(body.get('userId'));
+    const postId = Number(body.get('postId'));
     const title = body.get('title') as string;
     const summary = body.get('summary') as string;
     const description = body.get('description') as string;
     const author = body.get('author') as string;
     const category = body.get('category') as string;
-    const date = getCurrentDate();
+    // const date = getCurrentDate();
     const slug = slugify(title);
 
     // throw error in console if any field is empty
@@ -53,18 +46,9 @@ export async function action({ request }: { request: Request }) {
         return json({ error: "All fields are required" }, { status: 400 });
     }
 
-    // write data to file
-    const newPost = {
-        id, postId, title, slug, author, date, summary, description, category,
-    };
-
-    // new data
-    const newData = [...data, newPost];
-
-    // write to file
     try {
-        const filePath = "./posts_db.json";
-        fs.writeFileSync(filePath, JSON.stringify(newData, null, 2));
+        const result = await createPost(userId, postId, title, slug, summary, description, category)
+        console.log(result);
     } catch (error) {
         console.log("Error writing to file:", error);
         return json({ error: "Error writing to file" }, { status: 500 });

@@ -44,7 +44,7 @@ export default function Hero() {
 
         <div className="bg-red_vanila rounded-3xl">
           <div className="m-4 p-1">
-            <img src="/old_oil_paint.jpg" alt="apolo" className="rounded-xl w-full object-cover"></img>
+            <img src="/portfolio.jpg" alt="apolo" className="rounded-xl w-full object-cover scale-x-[-1]"></img>
             <div className="flex justify-between items-center my-3">
               <h1 className="font-raleway font-semibold text-3xl"><UnderlineLink underlineColor="#342415">Portfolio</UnderlineLink></h1>
             </div>
@@ -56,8 +56,13 @@ export default function Hero() {
 
         <div className="bg-skin_vanila rounded-3xl">
           <div className="m-4 p-1">
-            <div className="inline-block font-semibold font-raleway text-lg border-2 border-vanila_text rounded-full px-2">
-              GitHub
+            <div className="flex justify-between items-center">
+              <div className="inline-block font-semibold font-raleway text-lg border-2 border-vanila_text rounded-full px-2">
+                GitHub
+              </div>
+              <div>
+                <UnderlineLink underlineColor="#342415"><Link className="text-md font-raleway font-semibold" to="https://github.com/fudge-fantastic/WordSmith">Visit GitHub</Link></UnderlineLink>
+              </div> 
             </div>
             <p className="text-sm font-semibold my-4">This project is a work in progress, and I’d love for you to be part of it! Whether you’re here to give feedback, report bugs, or contribute code, every bit helps.</p>
             <img src="/github.jpg" alt="github_image" className="rounded-xl  w-full object-cover"></img>

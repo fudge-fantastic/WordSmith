@@ -4,16 +4,16 @@ import UnderlineLink from "../UnderLineLink";
 export default function Hero() {
   return (
     <div className="max-h-full container mx-auto px-4 md:px-0">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="bg-vanila rounded-3xl md:row-span-2">
-          <div className="m-4 p-1 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 h-full">
+        <div className="bg-vanila p-4 rounded-3xl md:row-span-2 h-full overflow-hidden">
+          <div className="h-full overflow-hidden rounded-b-3xl">
             <div className="flex justify-between items-center">
               <div>
                 <div className="font-semibold inline-block font-raleway text-lg border-2 border-vanila_text rounded-full px-2">Discover Latest</div>
                 <h1 className="text-2xl p-1 font-raleway font-semibold text-vanila_text my-2">Between Earth and Eternity</h1>
               </div>
             </div>
-            <img src="/between_earth.jpg" alt="between_earth" className="rounded-xl object-cover object-top w-full"></img>
+            <img src="/between_earth.jpg" alt="between_earth" className="rounded-xl object-cover object-top h-full"></img>
           </div>
 
         </div>

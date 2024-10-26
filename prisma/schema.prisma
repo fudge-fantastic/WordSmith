@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // One to Many
@@ -13,7 +14,7 @@ model User {
   name            String    @db.VarChar(30)
   email           String    @unique
   password        String
-  bio             String?    
+  bio             String?   @db.VarChar(200)
   role            Role      @default(BASIC)
   writtenPosts    Post[]    @relation("WrittenPosts")
   writtenComments Comment[] @relation("WrittenComments") // New relation

@@ -3,9 +3,19 @@ const prisma = new PrismaClient({log: ['query']});
 // const prisma = new PrismaClient({log: ['query']}); for Logging SQL in Console
 
 async function main() {
-    const findPosts = await prisma.user.findMany();
-    console.log(findPosts)
+    const findUser = await prisma.user.findMany()
+    // const user = await prisma.user.create({
+    //     data: {
+    //         name: "Aaditya",
+    //         email: "bluesalt3040@test.com",
+    //         password: "password9090",
+    //         role: "ADMIN",
+    //     }
+    // })
+    console.log(findUser)
 }
+
+
 
 main()
     .catch((e) => {

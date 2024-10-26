@@ -116,7 +116,7 @@ export default function CreatePosts() {
 
     return (
         <div className="min-h-screen flex flex-col items-center">
-            <h1 className="text-2xl font-semibold">Oh boi, here we go!</h1>
+            <h1 className="text-2xl font-semibold font-raleway text-vanila">Think the unthinkable.</h1>
             <div className="bg-green_vanila w-4/5 min-h-auto m-6 rounded-xl shadow-xl">
                 <Form method="post" className="relative m-6 rounded-xl space-y-5" onSubmit={handleSubmit}>
                     <div className="flex justify-between gap-5">
@@ -128,8 +128,8 @@ export default function CreatePosts() {
                             label="Your Name"
                             placeholder="Enter your name here"
                             // className={"w-full font-semibold"}
-                            className={`w-full font-semibold rounded-sm bg-green_vanila ${errors.author ? 'border-red-500' : 'border-gray-300'}`}
-                            radius="sm"
+                            className={`w-full font-semibold rounded-lg ${errors.author ? 'border-red-500' : 'border-gray-300'}`}
+                            radius="lg"
                             variant="flat"
                             name="author"
                             value={formFields.author}
@@ -194,7 +194,7 @@ export default function CreatePosts() {
                         type="submit"
                         variant="shadow"
                         radius="sm"
-                        className="font-bold"
+                        className="font-semibold"
                         isDisabled={isSubmitting}
                     >
                         {isSubmitting ? "Submitting..." : "Create Post"}

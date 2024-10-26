@@ -27,7 +27,7 @@ export default function Comments({ comments, postId }: Readonly<CommentsProps>) 
                     name="postId"
                     value={`${postId}`}  // Set postId here
                 />
-                <Button type="submit" variant="flat" radius="sm" className="font-bold mt-2">
+                <Button type="submit" variant="flat" radius="sm" className="font-semibold mt-2">
                     Submit!
                 </Button>
             </Form>
@@ -37,7 +37,7 @@ export default function Comments({ comments, postId }: Readonly<CommentsProps>) 
                 {comments.length > 0 ? (
                     comments.map((comment: Comment) => (
                         <div key={comment.commentId} className="border p-4 rounded-lg">
-                            <p className="font-bold text-sm">{comment.author}</p>
+                            <p className="font-semibold text-sm">{comment.author}</p>
                             <p className="text-sm">{comment.content}</p>
                             <span className="text-gray-500 text-xs">{comment.date}</span>
                         </div>

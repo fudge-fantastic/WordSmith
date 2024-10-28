@@ -1,10 +1,18 @@
-import { Form, useNavigation } from "@remix-run/react";
-import React, { useState } from "react";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
+import React, { useEffect, useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+
+type ActionData = {
+  errors?: { [key: string]: string };
+  error?: string;
+};
 
 export default function LoginForm() {
   const navigation = useNavigation()
+  // const actionData= useActionData();
+  const actionData = useActionData<ActionData>();
 
   const [isSignup, setIsSignup] = useState(false);
   const toggleSignup = () => setIsSignup(!isSignup);
@@ -24,7 +32,6 @@ export default function LoginForm() {
   const handleChangeName = (newValue: string) => {
     if (newValue.length <= 30) {
       setNameValue(newValue);
-      // setNameError(newValue.length <= 0 ? "Please enter your name" : "");
       setNameError(newValue.length <= 2 ? "Name too short!" : "");
     }
   };
@@ -42,20 +49,32 @@ export default function LoginForm() {
   const handleChangePassword = (newValue: string) => {
     setPasswordValue(newValue);
     setPasswordError(newValue === "" ? "Password is required" : "");
+    // setPasswordError(newValue.length <=5 ? "Password is kinda short" : "");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    if (!nameValue) setNameError("Name is required");
+    if (isSignup) {
+      if (!nameValue) setNameError("Name is required");
+    }
+
     if (!emailValue) setEmailError("Email is required");
     if (!passwordValue) setPasswordError("Password is required");
 
-    // Submit form
     if (!nameError && !emailError && !passwordError) {
       console.log("Form submitted");
-    } else {
-      console.log(e, isRouteErrorResponse(error));
     }
   };
+
+  useEffect(() => {
+    console.log(actionData)
+    if (actionData?.errors) {
+      // Error Message
+      // alert(actionData?.errors?.message)
+      onOpenChange(true)
+    }
+  }, [actionData])
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <div className="md:w-1/3 w-full text-vanila_text p-4 md:p-8  bg-vanila flex flex-col gap-4 justify-center rounded-xl">
@@ -64,6 +83,7 @@ export default function LoginForm() {
         {isSignup && (
           <div>
             <Input label="Name" radius="sm" size="sm" name="name" variant="flat" placeholder="John Doe" isRequired
+              maxLength={30}
               color={nameError ? "danger" : "default"}
               value={nameValue}
               onValueChange={handleChangeName}
@@ -76,6 +96,7 @@ export default function LoginForm() {
         )}
 
         <Input label="Email" type="email" radius="sm" size="sm" name="email" variant="flat" placeholder="john.doe@example.com"
+          // color={emailError ? "danger" : "default"}
           color={emailError ? "danger" : "default"}
           value={emailValue}
           onValueChange={handleChangeEmail}
@@ -86,7 +107,9 @@ export default function LoginForm() {
 
 
         <Input label="Password" variant="flat" placeholder="Enter your password" radius="sm" size="sm" name="password"
+          maxLength={30}
           value={passwordValue}
+          color={passwordError ? "danger" : "default"}
           onValueChange={handleChangePassword}
           isRequired
           endContent={
@@ -106,6 +129,7 @@ export default function LoginForm() {
           <>
             <Textarea label="Biography" placeholder="Tell us something about yourself" radius="sm" size="sm" name="bio" variant="flat" className="text-vanila_text my-2"
               maxRows={3}
+              maxLength={200}
               onValueChange={handleChangeBio}
               value={bioValue}
             />
@@ -132,6 +156,27 @@ export default function LoginForm() {
           </button>
         </div>
       </Form>
+
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Error</ModalHeader>
+              <ModalBody>
+                {actionData?.errors?.message}
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                {/* <Button color="primary" onPress={onClose}>
+                  Action
+                </Button> */}
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

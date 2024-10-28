@@ -4,20 +4,21 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 export async function getAllPosts() {
-    try {
-        return await prisma.post.findMany({
-            include: {
-                user:true,
-                comments:true
-            },
-            orderBy: {
-                date: 'desc'
-            }
-        })
-    } catch (error) {
-        console.log("An unexpected error occurred: ", error);
-        return []
-    }
+    // try {
+    //     return await prisma.post.findMany({
+    //         include: {
+    //             user:true,
+    //             comments:true
+    //         },
+    //         orderBy: {
+    //             date: 'desc'
+    //         }
+    //     })
+    // } catch (error) {
+    //     console.log("An unexpected error occurred: ", error);
+    //     return []
+    // }
+    return []
 }
 
 // Post Creation
@@ -41,7 +42,7 @@ export async function createUser(name, email, password, bio) {
         
         if (existingUser) {
             console.log("Existing User Found: ", existingUser);
-            throw new Error("User already exists, try logging in instead.");
+            return { error: true, message: ("User already exists, try logging in instead"), status: 400 };
         } else {
             const hashedPassword = await bcrypt.hash(password, 10);
             const newUser = await prisma.user.create({
@@ -52,7 +53,7 @@ export async function createUser(name, email, password, bio) {
         }
     } catch (error) {
         console.log("An unexpected error occurred: ", error.message);
-        return { error: true, message: error.message };
+        return { error: true, message: ("An unexpected error occurred: "  + error.message), status: 400 };
     }
 }
 
@@ -65,7 +66,8 @@ export async function loginUser(email, password) {
 
         if (!existingUser) {
             console.log("User not found with email:", email);
-            throw new Error("User does not exist");
+            // this one will halt the execution
+            return { error: true, message: ("Username or password is incorrect"), status: 200 };
         } else {
             const passwordMatch = await bcrypt.compare(password, existingUser.password);
             if (passwordMatch) {
@@ -73,12 +75,11 @@ export async function loginUser(email, password) {
                 return existingUser; // Optionally return full user data
             } else {
                 console.log("Password does not match for user:", existingUser);
-                // throw new Error("Invalid password");
-                return { error: true, message: "Invalid password" };
+                return { error: true, message: ("Username or password is incorrect"), status: 200 };
             }
         }
     } catch (error) {
         console.log("An unexpected error occurred: ", error.message);
-        return { error: true, message: ("An unexpected error occurred: ", error.message) };
+        return { error: true, message: ("An unexpected error occurred: ", error.message), status: 200 };
     }
 }

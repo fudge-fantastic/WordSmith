@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import UnderlineLink from "../UnderLineLink";
+import UnderlineLink from "./UnderLineLink";
 
 export default function Hero() {
   return (
@@ -48,7 +48,7 @@ export default function Hero() {
             <div className="flex justify-between items-center my-3">
               <h1 className="font-raleway font-semibold text-3xl"><UnderlineLink underlineColor="#342415">Portfolio</UnderlineLink></h1>
             </div>
-            <p className="text-sm font-semibold px-1">Check out my portfolio website for updates! Currently a work in progress, but exciting things are coming soon—stay tuned!</p>
+            <p className="text-sm font-semibold px-1">I&apos;m excited to share my portfolio with you soon! In the meantime, feel free to explore my other work. Stay tuned!</p>
           </div>
 
         </div>
@@ -56,14 +56,9 @@ export default function Hero() {
 
         <div className="bg-skin_vanila rounded-3xl">
           <div className="m-4 p-1">
-            <div className="flex justify-between items-center">
-              <div className="inline-block font-semibold font-raleway text-lg border-2 border-vanila_text rounded-full px-2">
+              <Link to="https://github.com/fudge-fantastic/WordSmith" className="inline-block font-semibold font-raleway text-lg border-2 border-vanila_text hover:bg-vanila_text  hover:text-skin_vanila duration-250 rounded-full px-2">
                 GitHub
-              </div>
-              <div>
-                <UnderlineLink underlineColor="#342415"><Link className="text-md font-raleway font-semibold" to="https://github.com/fudge-fantastic/WordSmith">Visit GitHub</Link></UnderlineLink>
-              </div> 
-            </div>
+              </Link>
             <p className="text-sm font-semibold my-4">This project is a work in progress, and I’d love for you to be part of it! Whether you’re here to give feedback, report bugs, or contribute code, every bit helps.</p>
             <img src="/github.jpg" alt="github_image" className="rounded-xl  w-full object-cover"></img>
           </div>

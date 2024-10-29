@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import React, { useEffect, useState } from "react";
 import { Input, Textarea } from "@nextui-org/input";
@@ -72,9 +73,10 @@ export default function LoginForm() {
       // alert(actionData?.errors?.message)
       onOpenChange(true)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionData])
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
 
   return (
     <div className="md:w-1/3 w-full text-vanila_text p-4 md:p-8  bg-vanila flex flex-col gap-4 justify-center rounded-xl">

@@ -5,7 +5,7 @@ const prisma = new PrismaClient({log: ['query']});
 async function main() {
     // await prisma.user.deleteMany()
     
-    // const findUser = await prisma.user.findMany()
+    const findUser = await prisma.user.findMany()
     // const user = await prisma.user.create({
     //     data: {
     //         name: "Aaditya",
@@ -14,7 +14,7 @@ async function main() {
     //         role: "ADMIN",
     //     }
     // })
-    // console.log(findUser)
+    console.log(findUser)
 
     // const existingUser = await prisma.user.findUnique({
     //     where: { email: "sp@gmail.com" }

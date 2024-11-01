@@ -66,13 +66,12 @@ export async function loginUser(email, password) {
 
         if (!existingUser) {
             console.log("User not found with email:", email);
-            // this one will halt the execution
             return { error: true, message: ("Username or password is incorrect"), status: 200 };
         } else {
             const passwordMatch = await bcrypt.compare(password, existingUser.password);
             if (passwordMatch) {
                 console.log("User Login Successful: ", existingUser);
-                return existingUser; // Optionally return full user data
+                return existingUser;
             } else {
                 console.log("Password does not match for user:", existingUser);
                 return { error: true, message: ("Username or password is incorrect"), status: 200 };

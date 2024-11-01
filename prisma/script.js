@@ -3,24 +3,11 @@ const prisma = new PrismaClient({log: ['query']});
 // const prisma = new PrismaClient({log: ['query']}); for Logging SQL in Console
 
 async function main() {
+    // await prisma.session.deleteMany()
     // await prisma.user.deleteMany()
-    
     const findUser = await prisma.user.findMany()
-    // const user = await prisma.user.create({
-    //     data: {
-    //         name: "Aaditya",
-    //         email: "bluesalt3040@test.com",
-    //         password: "password9090",
-    //         role: "ADMIN",
-    //     }
-    // })
-    console.log(findUser)
-
-    // const existingUser = await prisma.user.findUnique({
-    //     where: { email: "sp@gmail.com" }
-    // });
-    // console.log(existingUser)
-    
+    const findSessions = await prisma.session.findMany()
+    console.log(findUser, findSessions)
 }
 
 

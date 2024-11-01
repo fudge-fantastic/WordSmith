@@ -1,3 +1,4 @@
+import { Link } from '@remix-run/react';
 import React, { ReactNode } from 'react';
 
 interface UnderlineLinkProps {
@@ -9,13 +10,13 @@ interface UnderlineLinkProps {
 
 const UnderlineLink: React.FC<UnderlineLinkProps> = ({ text, href, underlineColor, children }) => {
   return (
-    <a
-      href={href}
+    <Link
+      to={href ? href.toString() : '/'}
       className="underline-hover"
       style={{ '--underline-color': underlineColor } as React.CSSProperties} // apply CSS variable
     >
       {text || children}
-    </a>
+    </Link>
   );
 };
 

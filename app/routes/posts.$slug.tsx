@@ -17,7 +17,7 @@ export default function SinglePost() {
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="">
             <div className="flex justify-end mx-7 gap-4">
                 <Link to="/posts" className="size-9 rounded-xl bg-[#e0d6c2] flex justify-center items-center hover:bg-skin_vanila duration-200"> <FaArrowLeftLong className="size-5 fill-vanila_text" /> </Link>
             </div>

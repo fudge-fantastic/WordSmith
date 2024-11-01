@@ -2,12 +2,12 @@ import { json } from "@remix-run/node";
 import { redirect } from "react-router";
 import LoginForm from "~/components/LoginForm"
 import { createUser, loginUser } from "~/db/query";
+import { commitSession, getSession } from "~/sessions_db";
 
 export async function action({ request }: { request: Request }) {
   const body = await request.formData();
   const _action = body.get('_action') as string;
   
-  // For SignIn and SignUp
   const email = body.get('email') as string;
   const password = body.get('password') as string;
   
@@ -48,8 +48,20 @@ export async function action({ request }: { request: Request }) {
       return json({ errors: { message: result_signup?.message } }, { status: 400 })
     }
 
-    // Redirect to Posts after 
-    return redirect(`/posts`);
+    if ('id' in result_signup && 'name' in result_signup && 'email' in result_signup) {
+      const userSession = await getSession(request.headers.get("cookie"));
+      userSession.set("userId", result_signup.id);
+      userSession.set("userName", result_signup.name);
+      userSession.set("userEmail", result_signup.email);
+      return redirect(`/posts`, {
+        headers: {
+          "Set-Cookie": await commitSession(userSession),
+          // expires: new Date(Date.now() + 60 * 60 * 24 * 1000)
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        }
+      })
+  
+    }
 
   } else if (_action == "Login") {
     const errors: Record<string, string> = {};
@@ -63,14 +75,28 @@ export async function action({ request }: { request: Request }) {
 
     const result_login = await loginUser(email, password);
     console.log("login_result: ", result_login)
+
     if (result_login?.error) {
       return json({ errors: { message: result_login?.message } }, { status: 400 })
     }
-    return redirect(`/posts`)
+
+    if ('id' in result_login && 'name' in result_login) {
+      const userSession = await getSession(request.headers.get("cookie"));
+      userSession.set("userId", result_login.id);
+      userSession.set("userName", result_login.name);
+      userSession.set("userEmail", result_login.email);
+      return redirect(`/posts`, {
+        headers: {
+          "Set-Cookie": await commitSession(userSession),
+          // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        }
+      })
+  
   } else {
     return json({ errors: { message: "Something went wrong, please try again!" } }, { status: 500 })
   }
-}
+}}
 
 export default function Login() {
 

@@ -10,32 +10,34 @@ datasource db {
 
 // One to Many
 model User {
-  id              String    @id @default(uuid())
-  name            String    @db.VarChar(30)
-  email           String    @unique
-  password        String
-  bio             String?   @db.VarChar(200)
-  role            Role      @default(BASIC)
+  id       String  @id @default(uuid())
+  name     String  @db.VarChar(30)
+  email    String  @unique
+  password String
+  bio      String? @db.VarChar(200)
+  role     Role    @default(BASIC)
+
   writtenPosts    Post[]    @relation("WrittenPosts")
   writtenComments Comment[] @relation("WrittenComments") // New relation
+  sessions        Session[] @relation("UserSessions")
 
   // @@unique([name, birthDate])
   @@index([email])
 }
 
 model Post {
-  id           String    @id @default(uuid())
-  authorId     String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @default(now())
-  author       User      @relation("WrittenPosts", fields: [authorId], references: [id])
-  
-  title        String    @db.VarChar(100)
-  slug         String
-  summary      String    @db.VarChar(500)
-  description  String
-  category     String
-  comments     Comment[] @relation("PostComments") // New relation for comments
+  id        String   @id @default(uuid())
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  author    User     @relation("WrittenPosts", fields: [authorId], references: [id])
+
+  title       String    @db.VarChar(100)
+  slug        String
+  summary     String    @db.VarChar(500)
+  description String
+  category    String
+  comments    Comment[] @relation("PostComments") // New relation for comments
 }
 
 enum Role {
@@ -53,5 +55,12 @@ model Comment {
   content   String
 }
 
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      User     @relation("UserSessions", fields: [userId], references: [id], onDelete: Cascade)
+}
 
 // Run the command to let db know the changes you've made: npx prisma migrate dev --name init

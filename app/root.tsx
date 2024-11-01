@@ -1,16 +1,21 @@
 import {
+  json,
   Links,
   Meta,
   Outlet,
+  // redirect,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import {NextUIProvider} from "@nextui-org/react";
+import { redirect } from "react-router";
 
 import "./tailwind.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import { destroySession, getSession } from "./sessions_db";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,7 +30,33 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export async function loader({request}: {request: Request}) {
+  const userSession = await getSession(request.headers.get("cookie"));
+  console.log("SessionData:", userSession.data);
+  if(userSession.has("userId")) {
+    if(new Date(userSession.get("expiresAt")) > new Date()) {
+      // console.log(new Date(userSession.get("expiresAt")) , new Date(), new Date(userSession.get("expiresAt")) < new Date())
+      return json(true)
+    }
+    return redirect("/login", { headers: { "Set-Cookie": await destroySession(userSession) } });
+  }
+  return json(false)
+}
+
 export function Layout() {
+  const isLoggedIn = useLoaderData();
+  // const navigate = useNavigate();
+
+  // useEffect(()=>{
+  //     console.log('useEffect')
+  //   if(!isLoggedIn){
+  //     navigate('/login');
+  //   }
+  //   // setInterval(() => {
+  //   //   console.log(isLoggedIn)
+  //   // }, 5000)
+  // }, [isLoggedIn, navigate])
+
   return (
     <html lang="en">
       <head>
@@ -36,7 +67,7 @@ export function Layout() {
       </head>
       <body className="min-h-screen">
         <NextUIProvider >
-            <NavBar />
+            <NavBar isLoggedIn={isLoggedIn} />
             <ScrollRestoration />
             <Scripts />
             <Outlet />

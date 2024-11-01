@@ -1,11 +1,12 @@
 // Imports
 import { Input, Textarea } from "@nextui-org/input";
 import { Button, Select, SelectItem } from "@nextui-org/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import categories_data from "./../shared/categories_data";
 import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 import {createPost} from "../db/query";
+import { getSession } from "~/sessions_db";
 
 // slug logic
 function slugify(title: string) {
@@ -26,6 +27,21 @@ export function getCurrentDate() {
     const month = monthNames[today.getMonth()];
     const day = today.getDate();
     return `${day}-${month}-${year}`;
+}
+
+export async function loader({request}: {request: Request}) {
+    console.log("From posts.new_post.tsx")
+
+    const userSession = await getSession(request.headers.get("cookie"));
+    console.log("SessionData:", userSession.data);
+
+    // This will restrict the user to visit the posts or any page (whenevr using this function in the current route, and a loader)
+    if (!userSession.has("userId")) {
+        console.log("redirecting to login, no cookie found")
+        return redirect("/login")
+    }
+
+    return json({success: true})
 }
 
 export async function action({ request }: { request: Request }) {
@@ -115,7 +131,7 @@ export default function CreatePosts() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center">
+        <div className=" flex flex-col items-center">
             <h1 className="text-2xl font-semibold font-raleway text-vanila">Think the unthinkable.</h1>
             <div className="bg-green_vanila w-4/5 min-h-auto m-6 rounded-xl shadow-xl">
                 <Form method="post" className="relative m-6 rounded-xl space-y-5" onSubmit={handleSubmit}>

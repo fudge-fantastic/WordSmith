@@ -297,3 +297,54 @@ export default function DemoForm() {
 }
 }
 ```
+
+### [Creating Sessions](https://remix.run/docs/en/main/utils/sessions)
+```tsx
+// app/sessions.ts
+import { createCookieSessionStorage } from "@remix-run/node"; // or cloudflare/deno
+
+type SessionData = {
+  userId: string;
+  userName: string;
+};
+
+type SessionFlashData = {
+  error: string;
+};
+
+// Read, create and delete the session
+const { getSession, commitSession, destroySession } =
+  createCookieSessionStorage<SessionData, SessionFlashData>(
+    {
+      // a Cookie from `createCookie` or the CookieOptions to create one
+      cookie: {
+        name: "__session",
+
+        // all of these are optional, localhost for now
+        domain: "localhost",
+        // Expires can also be set (although maxAge overrides it when used in combination)
+        httpOnly: true,
+        maxAge: 90,
+        path: "/",
+        sameSite: "lax",
+        secrets: [process.env.SESSION_SECRET ?? 'default-secret'], 
+        secure: true,
+      },
+    }
+  );
+
+export { getSession, commitSession, destroySession };
+
+
+// login.tsx
+if ('id' in result_signup && 'name' in result_signup) {
+      const userSession = await getSession(request.headers.get("cookie"));
+      userSession.set("userId", result_signup.id);
+      userSession.set("userName", result_signup.name);
+      return redirect(`/posts`, {
+        headers: {
+          "Set-Cookie": await commitSession(userSession),
+        }
+      })
+}
+```

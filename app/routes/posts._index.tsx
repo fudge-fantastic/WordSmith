@@ -8,7 +8,7 @@ export default function PostsPage() {
     // Here, We're fetching the entire data! 
     console.log("Comming from post_index:", data[0])
     return (
-        <div className="mx-3 min-h-screen">
+        <div className="mx-3 min-h-[75vh]">
             <div className="flex justify-end gap-4 mx-4">
                 <Link to="/posts/new_post" className="py-2 px-3 inline-block rounded-full bg-vanila hover:bg-dark_vanila hover:text-vanila hover:border-vanila duration-200 border-2 text-sm font-semibold">Create Post</Link>
             </div>

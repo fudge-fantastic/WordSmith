@@ -29,14 +29,14 @@ export default function Hero() {
               </div>
               <h1 className="mt-3 mb-1 text-xl font-raleway font-semibold"><div className="text-md"><UnderlineLink href={"/posts"} underlineColor="#342415">Unleash Your Creativity</UnderlineLink></div></h1>
               <p className="text-xs font-semibold uppercase">
-              Join a vibrant community of writers and readers on Wordsmith! Unleash your creativity by sharing your ideas, passions, and experiences through engaging blog posts that resonate with others. <br /><br />
-                <p className="hidden md:block">
+                Join a vibrant community of writers and readers on Wordsmith! Unleash your creativity by sharing your ideas, passions, and experiences through engaging blog posts that resonate with others. <br /><br />
+                <p className="hidden lg:block">
                   Wordsmith is your platform for self-expression. Dive into a variety of topics, from everyday life to culture and society. Connect with like-minded individuals, spark meaningful conversations, and inspire others with your unique voice. Together, let’s write the world!
                 </p>
               </p>
             </div>
 
-            <div className="relative mt-4 md:mt-0 md:w-1/2  rounded-xl overflow-hidden h-full">
+            <div className="relative mt-4 md:mt-0 md:w-1/2 rounded-xl overflow-hidden">
               <img
                 src="/old_oil_paint.jpg"
                 alt="apolo"
@@ -61,13 +61,15 @@ export default function Hero() {
 
 
         <div className="bg-skin_vanila rounded-3xl group">
-          <div className="m-4 p-1">
-            <Link to="https://github.com/fudge-fantastic/WordSmith" className="inline-block font-semibold font-raleway text-lg border-2 border-vanila_text hover:bg-vanila_text  hover:text-skin_vanila duration-250 rounded-full px-4">
-              Github
-            </Link>
+          <div className="m-4 p-1 flex flex-col h-[93%]">
+            <div>
+              <Link to="https://github.com/fudge-fantastic/WordSmith" className="inline-block font-semibold font-raleway text-lg border-2 border-vanila_text hover:bg-vanila_text  hover:text-skin_vanila duration-250 rounded-full px-4">
+                Github
+              </Link>
+            </div>
             <p className="text-xs font-semibold my-4 uppercase text-justify">This project is a work in progress, and I’d love for you to be part of it! Whether you’re here to give feedback, report bugs, or contribute code, every bit helps.</p>
-            <div className="overflow-hidden rounded-xl">
-              <img src="/github.jpg" alt="github_image" className="group-hover:scale-110 duration-700 rounded-xl w-full object-cover"></img>
+            <div className="overflow-hidden rounded-xl flex-1">
+              <img src="/github.jpg" alt="github_image" className="group-hover:scale-110 h-full duration-700 rounded-xl w-full object-cover"></img>
             </div>
           </div>
         </div>

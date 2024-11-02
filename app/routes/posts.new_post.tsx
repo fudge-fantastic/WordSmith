@@ -29,13 +29,13 @@ export function getCurrentDate() {
     return `${day}-${month}-${year}`;
 }
 
+// This will restrict the user to visit the posts or any page (whenevr using this function in the current route, and a loader)
 export async function loader({request}: {request: Request}) {
     console.log("From posts.new_post.tsx")
 
     const userSession = await getSession(request.headers.get("cookie"));
     console.log("SessionData:", userSession.data);
 
-    // This will restrict the user to visit the posts or any page (whenevr using this function in the current route, and a loader)
     if (!userSession.has("userId")) {
         console.log("redirecting to login, no cookie found")
         return redirect("/login")
@@ -47,7 +47,7 @@ export async function loader({request}: {request: Request}) {
 export async function action({ request }: { request: Request }) {
     console.log("Action method works");
     const body = await request.formData();
-    const userId = Number(body.get('userId'));
+    const userId = Number(body.get('authorId'));
     const postId = Number(body.get('postId'));
     const title = body.get('title') as string;
     const summary = body.get('summary') as string;

@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
@@ -26,12 +26,11 @@ model User {
 }
 
 model Post {
-  id        String   @id @default(uuid())
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  author    User     @relation("WrittenPosts", fields: [authorId], references: [id])
-
+  id          String    @id @default(uuid())
+  authorId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  author      User      @relation("WrittenPosts", fields: [authorId], references: [id])
   title       String    @db.VarChar(100)
   slug        String
   summary     String    @db.VarChar(500)

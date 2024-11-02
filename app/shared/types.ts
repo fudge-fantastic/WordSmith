@@ -1,31 +1,35 @@
 // app/types.ts
+
 export interface Posts {
-    id: number;
-    userId: number;
-    postId: number;
-    title: string;
-    slug: string;
-    date: string;
-    summary: string;
-    description: string;
-    category: string;
-    user: User;
-    comments: Comment[];
-  }
-  
-  export interface User {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
+    id : string
+    authorId : string
+    createdAt : Date
+    updatedAt : Date
+    author : User
+    title : string
+    slug : string
+    summary : string
+    description : string
+    category : string
+    comments : Comment[]
+}
+
+
+export interface User {
+    id :       string
+    name :     string
+    email :    string
+    password : string
+    bio :      string
   }
   
   export interface Comment {
-    id: number;
-    userId: number;
-    postId: number;
-    postSlug: string;
-    comment: string;
-    date: string;
+    id        :string
+    authorId  :string
+    postId    :string
+    createdAt :Date
+    author    :User
+    post      :Posts
+    content   :string
   }
   

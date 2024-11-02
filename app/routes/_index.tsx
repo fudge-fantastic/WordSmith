@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import GoogleAd from "~/components/GoogleAds";
 import Hero from "~/components/Hero";
 
 export const meta: MetaFunction = () => {
@@ -12,6 +13,7 @@ export default function Index() {
   return (
     <div className="">
       <Hero />
+      <GoogleAd />
     </div>
   );
 }

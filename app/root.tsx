@@ -8,14 +8,14 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-import {NextUIProvider} from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 import { redirect } from "react-router";
 
 import "./tailwind.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { destroySession, getSession } from "./sessions_db";
-import GoogleAds  from "./components/GoogleAds";
+import GoogleAds from "./components/GoogleAds";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -30,11 +30,11 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export async function loader({request}: {request: Request}) {
+export async function loader({ request }: { request: Request }) {
   const userSession = await getSession(request.headers.get("cookie"));
   console.log("SessionData:", userSession.data);
-  if(userSession.has("userId")) {
-    if(new Date(userSession.get("expiresAt")) > new Date()) {
+  if (userSession.has("userId")) {
+    if (new Date(userSession.get("expiresAt")) > new Date()) {
       // console.log(new Date(userSession.get("expiresAt")) , new Date(), new Date(userSession.get("expiresAt")) < new Date())
       return json(true)
     }
@@ -51,17 +51,18 @@ export function Layout() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-adsense-account" content="ca-pub-5038091624857202"></meta>
         <Meta />
         <Links />
-        <GoogleAds />
       </head>
       <body className="min-h-screen">
         <NextUIProvider >
-            <NavBar isLoggedIn={isLoggedIn} />
-            <ScrollRestoration />
-            <Scripts />
-            <Outlet />
-            <Footer />
+          <GoogleAds />
+          <NavBar isLoggedIn={isLoggedIn} />
+          <ScrollRestoration />
+          <Scripts />
+          <Outlet />
+          <Footer />
         </NextUIProvider>
       </body>
     </html>

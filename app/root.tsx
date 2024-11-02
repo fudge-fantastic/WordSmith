@@ -3,7 +3,6 @@ import {
   Links,
   Meta,
   Outlet,
-  // redirect,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -16,6 +15,7 @@ import "./tailwind.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { destroySession, getSession } from "./sessions_db";
+import GoogleAds  from "./components/GoogleAds";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,17 +45,6 @@ export async function loader({request}: {request: Request}) {
 
 export function Layout() {
   const isLoggedIn = useLoaderData();
-  // const navigate = useNavigate();
-
-  // useEffect(()=>{
-  //     console.log('useEffect')
-  //   if(!isLoggedIn){
-  //     navigate('/login');
-  //   }
-  //   // setInterval(() => {
-  //   //   console.log(isLoggedIn)
-  //   // }, 5000)
-  // }, [isLoggedIn, navigate])
 
   return (
     <html lang="en">
@@ -64,6 +53,7 @@ export function Layout() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <GoogleAds />
       </head>
       <body className="min-h-screen">
         <NextUIProvider >

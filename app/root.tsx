@@ -50,8 +50,6 @@ export function Layout() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5038091624857202"
-     crossOrigin="anonymous"></script>
         <Meta />
         <Links />
       </head>

@@ -4,33 +4,43 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 export async function getAllPosts() {
-    // try {
-    //     return await prisma.post.findMany({
-    //         include: {
-    //             user:true,
-    //             comments:true
-    //         },
-    //         orderBy: {
-    //             date: 'desc'
-    //         }
-    //     })
-    // } catch (error) {
-    //     console.log("An unexpected error occurred: ", error);
-    //     return []
-    // }
-    return []
-}
-
-// Post Creation
-export async function createPost(userId, postId, title, slug, summary, description, category) {
     try {
-        return await prisma.post.create({
-            userId, postId, title, slug, summary, description, category
-        })
+        return await prisma.post.findMany({
+            include: {
+                author: true,  
+                comments: true 
+            },
+            orderBy: {
+                createdAt: 'desc' 
+            }
+        });
     } catch (error) {
         console.log("An unexpected error occurred: ", error);
+        return [];
     }
 }
+
+
+// Post Creation
+export async function createPost(userId, title, slug, summary, description, category) {
+    console.log(userId, title, slug, summary, description, category);
+    try {
+        return await prisma.post.create({
+            data: {
+                authorId: userId,  // Maps userId to the Post's authorId field
+                title,
+                slug,
+                summary,
+                description,
+                category,
+            },
+        });
+    } catch (error) {
+        console.log("An unexpected error occurred: ", error);
+        throw new Error("Failed to create post");
+    }
+}
+
 
 // User Creation, now goto login.tsx
 export async function createUser(name, email, password, bio) {

@@ -13,7 +13,7 @@ function createDatabaseSessionStorage({ cookie }) {
       const session = await prisma.session.create({
         data: {
           userId: userId,
-          expiresAt: expires ?? new Date(Date.now() + 10 * 1000),
+          expiresAt: expires ?? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         },
       });
       return session.id;

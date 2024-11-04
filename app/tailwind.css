@@ -48,6 +48,3 @@ media screen and (max-width: 1200px) {
 .between-earth{
   height: calc(100% - 150px);
 }
-
-/* <uniquifier>: Use a unique and descriptive class name */
-/* <weight>: Use a value from 100 to 900 */

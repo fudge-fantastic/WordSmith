@@ -1,73 +1,49 @@
-// Imports
 import { Input, Textarea } from "@nextui-org/input";
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@nextui-org/react";
 import { json, redirect } from "@remix-run/node";
 import categories_data from "./../shared/categories_data";
 import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
-import {createPost} from "../db/query";
+import { createPost } from "../db/query";
 import { getSession } from "~/sessions_db";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-// slug logic
+// Slug logic
 function slugify(title: string) {
-    return title.toLowerCase()
-        .replace(/[^\w\s-]/g, '') // Remove non-word characters, spaces, and hyphens
-        .replace(/\s+/g, '-') // Replace spaces with hyphens
-        .replace(/^-|-$/g, ''); // Remove leading and trailing hyphens
+    return title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/^-|-$/g, '');
 }
 
-// date logic
-export function getCurrentDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-    const month = monthNames[today.getMonth()];
-    const day = today.getDate();
-    return `${day}-${month}-${year}`;
-}
-
-// This will restrict the user to visit the posts or any page (whenevr using this function in the current route, and a loader)
-export async function loader({request}: {request: Request}) {
-    console.log("From posts.new_post.tsx")
-
+// Loader function
+export async function loader({ request }: { request: Request }) {
     const userSession = await getSession(request.headers.get("cookie"));
-    console.log("SessionData:", userSession.data);
-
-    if (!userSession.has("userId")) {
-        console.log("redirecting to login, no cookie found")
-        return redirect("/login")
-    }
-
-    return json({success: true})
+    if (!userSession.has("userId")) return redirect("/login");
+    return json({ success: true });
 }
 
+// Action function
 export async function action({ request }: { request: Request }) {
-    console.log("Action method works");
     const body = await request.formData();
-    const userId = Number(body.get('authorId'));
-    const postId = Number(body.get('postId'));
-    const title = body.get('title') as string;
-    const summary = body.get('summary') as string;
-    const description = body.get('description') as string;
-    const author = body.get('author') as string;
-    const category = body.get('category') as string;
-    // const date = getCurrentDate();
+    // 91060d0e-0620-470c-87c1-ee29634246b1
+    const userId = "91060d0e-0620-470c-87c1-ee29634246b1";
+    // const userId = body.get("authorId") as string;
+    const title = body.get("title") as string;
+    const summary = body.get("summary") as string;
+    const description = body.get("description") as string;
+    const category = body.get("category") as string;
     const slug = slugify(title);
+    console.log(userId, title, summary, description, category, slug) 
 
-    // throw error in console if any field is empty
-    if (!author || !title || !summary || !description || !category) {
+    if (!userId || !title || !summary || !description || !category) {
         return json({ error: "All fields are required" }, { status: 400 });
     }
 
     try {
-        const result = await createPost(userId, postId, title, slug, summary, description, category)
-        console.log(result);
+        await createPost(userId, title, slug, summary, description, category);
+        redirect("/posts");
     } catch (error) {
-        console.log("Error writing to file:", error);
-        return json({ error: "Error writing to file" }, { status: 500 });
+        console.error("Error creating post:", error);
+        return json({ error: "Error creating post" }, { status: 500 });
     }
 
     return json({ success: true });
@@ -77,47 +53,28 @@ export default function CreatePosts() {
     const navigation = useNavigation();
     const isSubmitting = navigation.state === "submitting";
 
-    // State for form validation
+    // State management for form fields and preview
     const [formFields, setFormFields] = useState({
-        author: "",
         title: "",
         summary: "",
         description: "",
         category: ""
     });
 
-    const [errors, setErrors] = useState<{[key: string]: string}>({
-        author: "",
-        title: "",
-        summary: "",
-        description: "",
-        category: ""
-    });
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    // Handle form field change
+    // Handle input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormFields({
-            ...formFields,
-            [name]: value
-        });
-
-        // Clear errors when the field is filled
-        setErrors({
-            ...errors,
-            [name]: value ? "" : errors[name]
-        });
+        setFormFields({ ...formFields, [name]: value });
+        setErrors({ ...errors, [name]: value ? "" : `${name} is required` });
     };
-
-    interface Errors {
-        [key: string]: string;
-    }
 
     // Handle form submission validation
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        const newErrors: Errors = {};
+        const newErrors: { [key: string]: string } = {};
 
-        // Validation logic
+        // Check each field for empty values
         Object.keys(formFields).forEach((field) => {
             if (!formFields[field as keyof typeof formFields]) {
                 newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
@@ -125,57 +82,34 @@ export default function CreatePosts() {
         });
 
         if (Object.keys(newErrors).length > 0) {
-            e.preventDefault(); // Prevent form submission
-            setErrors(newErrors); // Set errors to show in the form
+            e.preventDefault();
+            setErrors(newErrors);
         }
     };
 
     return (
-        <div className=" flex flex-col items-center">
+        <div className="flex flex-col items-center">
             <h1 className="text-2xl font-semibold font-raleway text-vanila">Think the unthinkable.</h1>
             <div className="bg-green_vanila w-4/5 min-h-auto m-6 rounded-xl shadow-xl">
                 <Form method="post" className="relative m-6 rounded-xl space-y-5" onSubmit={handleSubmit}>
-                    <div className="flex justify-between gap-5">
-                        <Input
-                            isRequired
-                            description={errors.author}
-                            size="sm"
-                            color={errors.author ? "danger" : "default"}
-                            label="Your Name"
-                            placeholder="Enter your name here"
-                            // className={"w-full font-semibold"}
-                            className={`w-full font-semibold rounded-lg ${errors.author ? 'border-red-500' : 'border-gray-300'}`}
-                            radius="lg"
-                            variant="flat"
-                            name="author"
-                            value={formFields.author}
-                            onChange={handleInputChange}
-                        />
-                        <Input
-                            isRequired
-                            size="sm"
-                            description={errors.title}
-                            color={errors.title ? "danger" : "default"}
-                            label="Title"
-                            placeholder="Enter your title here"
-                            className="w-full"
-                            radius="sm"
+                    <div className="flex md:flex-row justify-between gap-5 flex-col">
+                        <Input name="authorId" type="hidden"/>
+                        <Input size="sm" label="Title" placeholder="Enter your title here" className="w-full" radius="sm"
                             variant="flat"
                             name="title"
+                            isRequired
+                            description={errors.title}
+                            color={errors.title ? "danger" : "default"}
                             value={formFields.title}
                             onChange={handleInputChange}
+                            maxLength={100}
                         />
-                        <Select
-                            label="Content type"
-                            placeholder="Select Category"
-                            className="max-w-64"
-                            name="category"
+                        <Select label="Content type" placeholder="Select Category" className="md:max-w-64" name="category" size="sm"
                             isRequired
-                            size="sm"
                             value={formFields.category}
                             onChange={handleInputChange}
                         >
-                            {categories_data.map((category: { id: number, name: string }) => (
+                            {categories_data.map((category) => (
                                 <SelectItem key={category.name} value={category.name}>
                                     {category.name}
                                 </SelectItem>
@@ -193,29 +127,28 @@ export default function CreatePosts() {
                         description={errors.summary}
                         value={formFields.summary}
                         onChange={handleInputChange}
+                        maxLength={500}
                     />
-                    <Textarea
-                        className="font-semibold"
-                        isRequired
-                        radius="sm"
-                        label="Description"
-                        placeholder="Post Content"
-                        name="description"
+                    <Textarea className="font-semibold" isRequired radius="sm" label="Description (Markdown supported)" placeholder="Write your content using Markdown..." name="description"
                         color={errors.description ? "danger" : "default"}
                         description={errors.description}
                         value={formFields.description}
                         onChange={handleInputChange}
+                        maxLength={5000}
                     />
-                    <Button
+                    <button
                         type="submit"
-                        variant="shadow"
-                        radius="sm"
-                        className="font-semibold"
-                        isDisabled={isSubmitting}
+                        className="font-semibold border-2 border-vanila bg-vanila rounded-full px-5 py-1 text-sm text-vanila_text hover:bg-green_vanila duration-250"
+                        disabled={isSubmitting}
                     >
                         {isSubmitting ? "Submitting..." : "Create Post"}
-                    </Button>
+                    </button>
                 </Form>
+
+                <div className="p-4 mt-4 rounded-lg shadow-lg text-vanila_text">
+                    <h2 className="font-semibold text-lg">Preview:</h2>
+                    <Markdown remarkPlugins={[remarkGfm]}>{formFields.description}</Markdown>
+                </div>
             </div>
         </div>
     );

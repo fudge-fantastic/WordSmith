@@ -31,7 +31,7 @@ export const links: LinksFunction = () => [
 
 export async function loader({request}: {request: Request}) {
   const userSession = await getSession(request.headers.get("cookie"));
-  console.log("SessionData:", userSession.data);
+  // console.log("SessionData:", userSession.data);
   if(userSession.has("userId")) {
     if(new Date(userSession.get("expiresAt")) > new Date()) {
       // console.log(new Date(userSession.get("expiresAt")) , new Date(), new Date(userSession.get("expiresAt")) < new Date())

@@ -56,7 +56,6 @@ export async function action({ request }: { request: Request }) {
       return redirect(`/posts`, {
         headers: {
           "Set-Cookie": await commitSession(userSession),
-          // expires: new Date(Date.now() + 60 * 60 * 24 * 1000)
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         }
       })
@@ -88,7 +87,6 @@ export async function action({ request }: { request: Request }) {
       return redirect(`/posts`, {
         headers: {
           "Set-Cookie": await commitSession(userSession),
-          // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         }
       })

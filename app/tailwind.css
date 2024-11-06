@@ -48,3 +48,7 @@ media screen and (max-width: 1200px) {
 .between-earth{
   height: calc(100% - 150px);
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: revert !important;
+}

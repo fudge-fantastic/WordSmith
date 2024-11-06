@@ -16,8 +16,8 @@ export default function SinglePost() {
 
     return (
         <div>
-            <div className="mx-6 p-5 bg-vanila rounded-3xl text-vanila_text my-4">
-                <h1 className="text-2xl font-semibold">{post.title}</h1>
+            <div className="mx-6 p-4 bg-vanila rounded-3xl text-vanila_text my-2">
+                <h1 className="font-semibold tracking-normal">{post.title}</h1>
                 <p className="mb-3">
                     by <span className="font-semibold">{post.author.name}</span> posted on{" "}
                     <span className="font-semibold">{new Date(post.createdAt).toLocaleDateString("en-GB", {
@@ -26,8 +26,9 @@ export default function SinglePost() {
                         year: "numeric",
                     })}</span>
                 </p>
-                <p className="font-semibold">{post.summary}</p>
-                <Markdown>{post.description}</Markdown>
+                <p className="text-2xl font-semibold">Summary</p>
+                <p className="font-semibold mb-2">{post.summary}</p>
+                <Markdown className="my-2">{post.description}</Markdown>
             </div>
             
             {/* Display comments */}
@@ -43,7 +44,7 @@ export default function SinglePost() {
                         isRequired
                         size="sm"
                     />
-                    <button type="submit" className="font-semibold px-3 py-1 border-2 hover:bg-red_vanila duration-200 hover:border-red_vanila hover:text-white border-red_vanila rounded-xl text-dark_vanila">
+                    <button type="submit" className="border-2 px-4 py-1 rounded-full border-vanila_text hover:bg-vanila_text hover:text-vanila duration-200">
                         Submit!
                     </button>
                 </Form>

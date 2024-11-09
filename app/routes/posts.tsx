@@ -4,9 +4,12 @@ import { getAllPosts } from "../db/query"
 import type { Posts } from "../shared/types";
 
 export async function loader() {
-    console.log("coming from posts.tsx")
-    const posts = await getAllPosts()
-    return json(posts || [])
+    try {
+        const posts = await getAllPosts()
+        return json(posts || [])
+    } catch (error) {
+        throw new Response("Failed to load all posts", {status : 500})
+    }
 }
 
 export default function Posts() {
@@ -14,6 +17,15 @@ export default function Posts() {
     return (
         <div>
             <Outlet  context={{ sharedData: data }} />
+        </div>
+    )
+}
+
+export function ErrorBoundary({error}: Readonly<{error: Error}>) {
+    return (
+        <div>
+            <h2 className="text-3xl font-bold">Something went wrong</h2>
+            <p>{error.message || "Please Try Again"}</p>
         </div>
     )
 }

@@ -64,7 +64,7 @@ export default function Index({ isLoggedIn }) {
 
       {/* Mobile Menu with Transition */}
       <div
-        className={`absolute top-16 right-7 bg-dark_vanila rounded-lg shadow-lg p-4 z-50 flex flex-col gap-3 text-vanila font-raleway duration-300 transform transition-all ease-in-out ${
+        className={`absolute top-16 right-6 bg-dark_vanila rounded-lg shadow-lg p-4 z-50 flex flex-col gap-3 text-vanila font-raleway duration-300 transform transition-all ease-in-out ${
           isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >

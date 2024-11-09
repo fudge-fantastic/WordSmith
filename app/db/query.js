@@ -92,3 +92,44 @@ export async function loginUser(email, password) {
         return { error: true, message: ("An unexpected error occurred: ", error.message), status: 200 };
     }
 }
+
+// Get post ID
+export async function getPostById(id) {
+    try {
+        const post = await prisma.post.findUnique({
+            where: { id }
+        })
+        if (!post) {
+            console.log("Post not found with id:", id);
+            return { error: true, message: ("Post not found"), status: 200 };
+        }
+        console.log("Post found: ", post);
+        return post;
+
+    } catch (error) {
+        console.log("An unexpected error occurred: ", error.message);
+        return { error: true, message: ("An unexpected error occurred: ", error.message), status: 200 };
+    }    
+}
+
+// Edit Post 
+export async function editPost(postId, userId, title, slug, summary, description, category) {
+    try {
+      return await prisma.post.update({
+        where: {
+          id: postId, // Use the postId to find the specific post
+        },
+        data: {
+          authorId: userId, // Maps userId to the Post's authorId field
+          title,
+          slug,
+          summary,
+          description,
+          category,
+        },
+      });
+    } catch (error) {
+      console.error("An unexpected error occurred: ", error);
+      throw new Error("Failed to edit post");
+    }
+  }

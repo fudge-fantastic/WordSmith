@@ -1,13 +1,8 @@
 export default function Test() {
   return (
     <div>
-      <div className="text-red-500">
-        <ul>
-          <li>Coffee</li>
-          <li>Tea</li>
-          <li>Milk</li>
-        </ul> 
-      </div>
+      <h1>Test</h1>
+      <button onClick={handleClick}>Click me to raise the error</button>
     </div>
   )
 }

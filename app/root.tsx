@@ -1,12 +1,4 @@
-import {
-  json,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useLoaderData,
-} from "@remix-run/react";
+import {json,Links,Meta,Outlet,Scripts,ScrollRestoration,useLoaderData,} from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import {NextUIProvider} from "@nextui-org/react";
 import { redirect } from "react-router";
@@ -34,7 +26,6 @@ export async function loader({request}: {request: Request}) {
   // console.log("SessionData:", userSession.data);
   if(userSession.has("userId")) {
     if(new Date(userSession.get("expiresAt")) > new Date()) {
-      // console.log(new Date(userSession.get("expiresAt")) , new Date(), new Date(userSession.get("expiresAt")) < new Date())
       return json(true)
     }
     return redirect("/login", { headers: { "Set-Cookie": await destroySession(userSession) } });

@@ -1,7 +1,8 @@
 // This file is the Parent of the posts.$slug.tsx and posts._index.tsx
-import { useLoaderData, json, Outlet} from "@remix-run/react";
+import { useLoaderData, Outlet} from "@remix-run/react";
 import { getAllPosts } from "../db/query"
 import type { Posts } from "../shared/types";
+import { json } from "@remix-run/node";
 
 export async function loader() {
     try {

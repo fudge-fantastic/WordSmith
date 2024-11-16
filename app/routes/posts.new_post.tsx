@@ -1,11 +1,12 @@
 import { Input, Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/react";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import categories_data from "./../shared/categories_data";
 import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 import { createPost } from "../db/query";
 import { getSession } from "~/sessions_db";
+import { json } from "react-router";
 
 // Slug logic
 export function slugify(title: string) {

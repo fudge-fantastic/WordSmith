@@ -133,3 +133,21 @@ export async function editPost(postId, userId, title, slug, summary, description
       throw new Error("Failed to edit post");
     }
   }
+
+// User posts
+export async function getPostByUserId(userId) {
+    try {
+        const posts = await prisma.post.findMany({
+            where: {
+                authorId: userId
+            }
+        });
+        return posts;
+    }
+
+    catch (error) {
+        console.log("An unexpected error occurred: ", error);
+        // throw new Error("Failed to edit post");
+        return [];
+    }
+}

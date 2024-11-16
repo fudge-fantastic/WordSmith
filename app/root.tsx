@@ -1,5 +1,5 @@
-import {json,Links,Meta,Outlet,Scripts,ScrollRestoration,useLoaderData,} from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import {Links,Meta,Outlet,Scripts,ScrollRestoration,useLoaderData,} from "@remix-run/react";
+import { json, type LinksFunction } from "@remix-run/node";
 import {NextUIProvider} from "@nextui-org/react";
 import { redirect } from "react-router";
 

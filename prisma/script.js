@@ -9,8 +9,8 @@ async function main() {
     // await prisma.post.deleteMany()
     const findUser = await prisma.user.findMany()
     const findSessions = await prisma.session.findMany()
-    const findPosts = await prisma.post.findMany()
-    console.log(findUser, findSessions, findPosts)
+    // const findPosts = await prisma.post.findMany()
+    console.log(findUser, findSessions)
 }
 
 

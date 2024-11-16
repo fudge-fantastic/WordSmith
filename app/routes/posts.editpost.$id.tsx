@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Select, Input, SelectItem, Textarea } from "@nextui-org/react";
-import { Form, useLoaderData, useNavigation, json, redirect } from "@remix-run/react";
+import { Form, useLoaderData, useNavigation} from "@remix-run/react";
 import { useState } from "react";
 import { getPostById, editPost } from "~/db/query";
 import categories_data from "~/shared/categories_data";
 import { slugify } from "./posts.new_post";
+import { redirect } from "@remix-run/node";
+import { json } from "react-router";
 
 // Loader function to fetch post data from the database
 export async function loader({ params }: { params: any }) {

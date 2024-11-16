@@ -17,7 +17,7 @@ export default function SinglePost() {
 
     return (
         <div>
-            <div className="mx-6 p-4 bg-vanila rounded-3xl text-vanila_text my-2 font-raleway">
+            <div className="mx-6 p-4 bg-vanila rounded-3xl text-vanila_text my-2 font-nunito">
                 <div className="flex items-center gap-4">
                     <div className="font-semibold tracking-normal text-3xl">{post.title}</div>
                     <Tooltip content="Edit Post" offset={4} delay={10} closeDelay={10}>

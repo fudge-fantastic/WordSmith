@@ -1,8 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Get all posts
 export async function getAllPosts() {
     try {
         return await prisma.post.findMany({
@@ -149,5 +150,19 @@ export async function getPostByUserId(userId) {
         console.log("An unexpected error occurred: ", error);
         // throw new Error("Failed to edit post");
         return [];
+    }
+}
+
+// Delete Post
+export async function deletePost(postId) {
+    try {
+        return await prisma.post.delete({
+            where: {
+                id: postId
+            }
+        });
+    } catch (error) {
+        console.log("An unexpected error occurred: ", error);
+        throw new Error("Failed to delete post");
     }
 }
